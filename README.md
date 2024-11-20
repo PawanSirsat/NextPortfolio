@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Builder Platform - Documentation
 
-## Getting Started
+## **Project Overview**
 
-First, run the development server:
+The Portfolio Builder Platform allows users to create and share professional portfolios. Users can add their education, projects, articles, and more, and share their unique URLs with others. The platform also supports collaboration, enabling users to work on projects and articles together. This document outlines the features, user flow, and system architecture.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## **Features**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### **User Features**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **User Authentication**:
+   - Sign up and log in with email and password.
+   - Edit and update profiles, including adding a profile picture, bio, and skills/tags.
+2. **Portfolio Creation**:
+   - Create and update portfolios.
+   - Generate a unique, shareable URL (e.g., `platform.com/username` ).
+3. **Education Management**:
+   - Add multiple educational qualifications.
+   - Include degree, institution, start/end dates, and achievements.
+4. **Experience Management**:
+   - Add professional experiences (roles, organizations, durations, and descriptions).
+5. **Project Management**:
+   - Add and describe projects with:
+     - Title, description, technologies used, and media.
+   - Invite collaborators by username.
+   - Assign roles and responsibilities to collaborators.
+6. **Articles**:
+   - Write, edit, and publish articles with tags and media.
+   - Add collaborators (co-authors, reviewers).
+   - Share articles through a unique URL or showcase them on the profile.
+7. **Social Links**:
+   - Add links to external platforms like LinkedIn, GitHub, or personal websites.
+8. **Search and Discovery**:
+   - Search users by name or tags.
+   - Discover portfolios and articles by tags or featured categories.
+9. **Analytics (Optional)**:
+   - Track portfolio and article views and interactions.
 
-## Learn More
+### **Admin Features**
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **User Management**:
+   - View and manage user accounts.
+   - Moderate content (e.g., articles, portfolios).
+2. **Content Curation**:
+   - Feature portfolios and articles on the homepage.
