@@ -79,6 +79,18 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    background-image: linear-gradient(to top, #212121 0%, black 80%);
   }
+}
+
+body h1 {
+  @apply text-3xl font-bold text-[#66FCD1];
+}
+/* Hide scrollbar for the slider */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

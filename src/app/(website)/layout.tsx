@@ -1,17 +1,18 @@
-import React from 'react'
-import LandingPageNavBar from './components/navbar'
+import React from "react";
+import LandingPageNavBar from "./components/navbar";
+import Navbar from "./components/navbar";
 
 type Props = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const layout = ({ children }: Props) => {
   return (
-    <div className='felx felx-col py-10 px-10 xl:px-5 container'>
-      <LandingPageNavBar />
-      {children}
+    <div>
+      <Navbar />
+      <div className="min-h-screen py-8 px-6 sm:px-12">{children}</div>
     </div>
-  )
-}
+  );
+};
 
-export default layout
+export default layout;

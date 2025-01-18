@@ -1,5 +1,15 @@
-import Image from 'next/image'
+import SearchBar from "./components/SearchBar";
+import CategoriesBar from "./components/CategoriesBar";
+import TrendingProjects from "./components/TrendingProjects";
+import LatestArticles from "./components/LatestArticles";
 
 export default function Home() {
-  return <main>Home Page</main>
+  return (
+    <>
+      <SearchBar />
+      <CategoriesBar />
+      <TrendingProjects />
+      <LatestArticles />
+    </>
+  );
 }

@@ -1,38 +1,39 @@
-import { Button } from '@/components/ui/button'
-import { Menu, User } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { currentUser } from "@clerk/nextjs/server";
+import { User } from "lucide-react";
+import Link from "next/link";
 
-import React from 'react'
+type Props = {};
 
-type Props = {}
+const Navbar = async () => {
+  const user = await currentUser();
+  console.log(user);
 
-const LandingPageNavBar = (props: Props) => {
   return (
-    <div className='flex w-full justify-between items-center'>
-      <div className='text-3xl font-semibold flex items-center gap-x-3'>
-        <Menu className='w-8 h-8' />
-        {/* <Image alt='logo' src='/opal-logo.svg' width={40} height={40} /> */}
-        NextPortfolio
+    <div className=" text-white px-4 lg:px-8 py-4 flex items-center justify-between  font-semibold font-sans">
+      {/* Logo and Menu */}
+      <div className="flex items-center gap-x-3">
+        <h1 className="text-xl md:text-3xl font-semibold">NextPortfolio</h1>
       </div>
-      {/* <div className='hidden gap-x-10 items-center lg:flex'>
-        <Link
-          href='/'
-          className='bg-[#7320DD] py-2 px-5 font-semibold text-lg rounded-full hover:bg-[#7320DD]/80'
-        >
-          Home
-        </Link>
-        <Link href='/'>Pricing</Link>
-        <Link href='/'>Contact</Link>
-      </div> */}
-      <Link href='/auth/sign-in'>
-        <Button className='text-base flex gap-x-2'>
-          <User fill='#000' />
-          Login
-        </Button>
-      </Link>
-    </div>
-  )
-}
 
-export default LandingPageNavBar
+      {/* User Profile or Login */}
+      <div className="flex items-center gap-x-4">
+        {user ? (
+          <Link href="/profile">
+            <h2>{user.firstName}</h2>
+          </Link>
+        ) : (
+          <Link href="/auth/sign-in">
+            <Button className="flex gap-x-2 text-base">
+              <User fill="#000" />
+              Login
+            </Button>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
