@@ -13,47 +13,22 @@ model User {
   clerkUserId String @unique
   username    String   @unique
   email       String   @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  portfolios  Portfolio[]
-  collaborationsProject CollaborationsProject[]
-  collaborationsArticle CollaborationsArticle[]
-}
-
-model Portfolio {
-  id              String   @id @default(uuid())
-  userId          String
-  title           String
-  description     String?
-  isActive        Boolean  @default(false)
-  layoutPreference String?
-  themeMode       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  user            User     @relation(fields: [userId], references: [id])
-  info            Info[]
-  projects        Project[]
-  articles        Article[]
-  education       Education[]
-  experiences     Experience[]
-}
-
-model Info {
-  id              String   @id @default(uuid())
-  portfolioId     String
+  firstname   String?
+  lastname    String?
   profilePicture  String?
   bio             String?
   tags            Json?
   professionTags  Json?
   socialLinks     Json?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  portfolio       Portfolio @relation(fields: [portfolioId], references: [id])
+  projects        Project[]
+  articles        Article[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Project {
   id              String   @id @default(uuid())
-  portfolioId     String
+  userId          String
   title           String
   description     String
   tags            Json?
@@ -62,30 +37,12 @@ model Project {
   endDate         DateTime?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  portfolio       Portfolio @relation(fields: [portfolioId], references: [id])
-  collaborations  CollaborationsProject[]
-  projectEducationConnections ProjectEducationConnection[]
-  projectExperienceConnections ProjectExperienceConnection[]
-}
-
-model CollaborationsProject {
-  id          String   @id @default(uuid())
-  userId      String
-  projectId   String
-  itemType    String
-  itemId      String
-  role        String
-  status      String   @default("pending")
-  invitedBy   String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id])
-  project     Project  @relation(fields: [projectId], references: [id])
+  User       User @relation(fields: [userId], references: [id])
 }
 
 model Article {
   id              String   @id @default(uuid())
-  portfolioId     String
+  userId     String
   title           String
   content         String
   tags            Json?
@@ -93,89 +50,7 @@ model Article {
   published       Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  portfolio       Portfolio @relation(fields: [portfolioId], references: [id])
-  collaborations  CollaborationsArticle[]
-  articleEducationConnections ArticleEducationConnection[]
-  articleExperienceConnections ArticleExperienceConnection[]
+  User       User @relation(fields: [userId], references: [id])
 }
 
-model CollaborationsArticle {
-  id          String   @id @default(uuid())
-  userId      String
-  articleId   String
-  itemType    String
-  itemId      String
-  role        String
-  status      String   @default("pending")
-  invitedBy   String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id])
-  article     Article  @relation(fields: [articleId], references: [id])
-}
 
-model Education {
-  id          String   @id @default(uuid())
-  portfolioId String
-  degree      String
-  institution String
-  startDate   DateTime
-  endDate     DateTime?
-  achievements String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
-  projectEducationConnections ProjectEducationConnection[]
-  articleEducationConnections ArticleEducationConnection[]
-}
-
-model Experience {
-  id          String   @id @default(uuid())
-  portfolioId String
-  role        String
-  organization String
-  startDate   DateTime
-  endDate     DateTime?
-  description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
-  projectExperienceConnections ProjectExperienceConnection[]
-  articleExperienceConnections ArticleExperienceConnection[]
-}
-
-model ProjectEducationConnection {
-  id          String   @id @default(uuid())
-  projectId   String
-  educationId String
-  createdAt   DateTime @default(now())
-  project     Project  @relation(fields: [projectId], references: [id])
-  education   Education @relation(fields: [educationId], references: [id])
-}
-
-model ProjectExperienceConnection {
-  id          String   @id @default(uuid())
-  projectId   String
-  experienceId String
-  createdAt   DateTime @default(now())
-  project     Project    @relation(fields: [projectId], references: [id])
-  experience  Experience @relation(fields: [experienceId], references: [id])
-}
-
-model ArticleEducationConnection {
-  id          String   @id @default(uuid())
-  articleId   String
-  educationId String
-  createdAt   DateTime @default(now())
-  article     Article  @relation(fields: [articleId], references: [id])
-  education   Education @relation(fields: [educationId], references: [id])
-}
-
-model ArticleExperienceConnection {
-  id          String   @id @default(uuid())
-  articleId   String
-  experienceId String
-  createdAt   DateTime @default(now())
-  article     Article    @relation(fields: [articleId], references: [id])
-  experience  Experience @relation(fields: [experienceId], references: [id])
-}

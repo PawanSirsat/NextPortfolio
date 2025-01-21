@@ -8,7 +8,6 @@ type Props = {};
 
 const Navbar = async () => {
   const user = await currentUser();
-  console.log(user);
 
   return (
     <div className=" text-white px-4 lg:px-8 py-4 flex items-center justify-between  font-semibold font-sans">

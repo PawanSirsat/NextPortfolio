@@ -1,9 +1,18 @@
-import React from 'react'
+import { redirect } from "next/navigation";
+import React from "react";
+import { onAuthenticateUser } from "../actions/user";
 
-type Props = {}
+type Props = {};
 
-const page = (props: Props) => {
-  return <div>page</div>
-}
+const DasboardPage = async (props: Props) => {
+  //Authentication
+  const auth = await onAuthenticateUser();
+  if (auth.status === 200 || auth.status === 201)
+    return redirect(`/dashboard/${auth.user?.id}`);
 
-export default page
+  if (auth.status === 400 || auth.status === 500 || auth.status === 404) {
+    return redirect("/auth/sign-in");
+  }
+};
+
+export default DasboardPage;

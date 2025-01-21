@@ -4,10 +4,10 @@ import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
 type Props = {
-  params: { workspaceId: string };
+  params: { portfolioId: string };
 };
 
-const Page = async ({ params: { workspaceId } }: Props) => {
+const Page = async ({ params: { portfolioId } }: Props) => {
   const user = await currentUser();
   console.log(user);
 
