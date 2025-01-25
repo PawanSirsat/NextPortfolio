@@ -1,27 +1,33 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { currentUser } from "@clerk/nextjs/server";
-import { User } from "lucide-react";
-import Link from "next/link";
+import React from "react"
+import { Button } from "@/components/ui/button"
+import { currentUser } from "@clerk/nextjs/server"
+import { User } from "lucide-react"
+import Link from "next/link"
+import { SignedIn, UserButton } from "@clerk/nextjs"
 
-type Props = {};
+type Props = {}
 
 const Navbar = async () => {
-  const user = await currentUser();
+  const user = await currentUser()
 
   return (
     <div className=" text-white px-4 lg:px-8 py-4 flex items-center justify-between  font-semibold font-sans">
       {/* Logo and Menu */}
       <div className="flex items-center gap-x-3">
-        <h1 className="text-xl md:text-3xl font-semibold">NextPortfolio</h1>
+        <Link href="/">
+          <h1 className="text-xl md:text-3xl font-semibold">NextPortfolio</h1>
+        </Link>
       </div>
 
       {/* User Profile or Login */}
       <div className="flex items-center gap-x-4">
         {user ? (
-          <Link href="/profile">
-            <h2>{user.firstName}</h2>
-          </Link>
+          <>
+            <Link href="/profile">Dashboard</Link>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>{" "}
+          </>
         ) : (
           <Link href="/auth/sign-in">
             <Button className="flex gap-x-2 text-base">
@@ -32,7 +38,7 @@ const Navbar = async () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
