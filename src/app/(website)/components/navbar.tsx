@@ -15,7 +15,7 @@ const Navbar = async () => {
       {/* Logo and Menu */}
       <div className="flex items-center gap-x-3">
         <Link href="/">
-          <h1 className="text-xl md:text-3xl font-semibold">NextPortfolio</h1>
+          <h1 className="text-xl md:text-3xl font-semibold">NxtFolio</h1>
         </Link>
       </div>
 

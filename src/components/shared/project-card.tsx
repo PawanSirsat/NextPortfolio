@@ -27,6 +27,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   githubRepo,
   status,
   views,
+  lastUpdated,
 }) => {
   const [repoData, setRepoData] = useState<{
     stars: number
@@ -121,6 +122,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             )
           })}
         </div>
+        <div className="text-sm text-muted-foreground mb-2">
+          Last updated: {lastUpdated}
+        </div>
         {isLoading ? (
           <p className="text-sm text-muted-foreground mb-2">
             Loading GitHub data...
@@ -131,10 +135,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </p>
         ) : repoData ? (
           <>
-            <div className="text-sm text-muted-foreground mb-2">
-              Last updated: {repoData.lastUpdated}
-            </div>
-            <div className="flex gap-4 text-sm text-muted-foreground mb-4">
+            <div className="flex gap-4 text-sm text-muted-foreground mb-2">
               <span className="flex items-center gap-1">
                 <Star className="w-4 h-4" /> {repoData.stars}
               </span>

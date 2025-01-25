@@ -25,6 +25,9 @@ import {
   Clock,
 } from "lucide-react"
 import placeholder from "/assets/images/project-placeholder.svg"
+import ReactMarkdown from "react-markdown"
+import MarkdownRenderer from "@/components/shared/MarkdownRenderer"
+import { content } from "@/hooks/utils"
 
 const DetailedProjectPage = () => {
   const params = useParams()
@@ -35,7 +38,18 @@ const DetailedProjectPage = () => {
     longDescription:
       "This e-commerce platform is a comprehensive solution that allows businesses to set up their online stores quickly and efficiently. It features a robust user authentication system, seamless payment integration, and a user-friendly interface for both customers and administrators.",
     image: "/placeholder.svg?height=400&width=1200",
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+    technologies: [
+      "React",
+      "Node.js",
+      "Express",
+      "Mongodb",
+      "Stripe",
+      "Java",
+      "appwrite",
+      "Nextjs",
+      "Playwrite",
+      "Kubernetes",
+    ],
     liveDemo: "https://example-ecommerce.com",
     githubRepo: "https://github.com/username/ecommerce-platform",
     status: "Completed",
@@ -180,7 +194,10 @@ const DetailedProjectPage = () => {
 
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-2">Project Details</h3>
-            <p className="text-muted-foreground">{project.longDescription}</p>
+            <p className="text-muted-foreground">
+              {" "}
+              <MarkdownRenderer content={content} />;
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

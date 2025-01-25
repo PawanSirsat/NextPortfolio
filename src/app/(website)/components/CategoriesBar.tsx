@@ -1,5 +1,5 @@
-import React from "react";
-import { IoPerson, IoLaptop, IoBrush, IoPencil } from "react-icons/io5";
+import React from "react"
+import { IoPerson, IoLaptop, IoBrush, IoPencil } from "react-icons/io5"
 
 export default function CategoriesBar() {
   const categories = [
@@ -33,7 +33,7 @@ export default function CategoriesBar() {
       icon: <IoLaptop />,
       color: "bg-orange-500",
     },
-  ];
+  ]
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 py-6 lg:px-24">
@@ -49,11 +49,11 @@ export default function CategoriesBar() {
             {category.icon}
           </div>
           {/* Text Section */}
-          <div className="flex-grow flex items-center justify-center text-gray-300 text-xs sm:text-sm md:text-base bg-gray-800 group-hover:bg-gray-700 transition-all">
+          <div className="flex-grow flex items-center justify-center text-gray-300 text-xs sm:text-sm md:text-base bg-[#151515] group-hover:bg-gray-700 transition-all">
             {category.name}
           </div>
         </button>
       ))}
     </div>
-  );
+  )
 }
