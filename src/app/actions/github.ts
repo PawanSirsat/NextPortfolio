@@ -6,8 +6,6 @@ export const fetchGitHubData = async (
   repo: string
 ): Promise<GitHubData> => {
   try {
-    console.log("Fetching GitHub data for:", owner, repo)
-
     const response = await axios.get(
       `https://api.github.com/repos/${owner}/${repo}`
     )
