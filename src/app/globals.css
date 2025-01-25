@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -75,16 +77,33 @@
 }
 
 @layer base {
+  :root {
+    --status-completed: 142 76% 36%;
+    --status-in-progress: 217 91% 60%;
+    --status-archived: 0 84% 60%;
+  }
+
+  .dark {
+    --status-completed: 142 76% 45%;
+    --status-in-progress: 217 91% 65%;
+    --status-archived: 0 84% 65%;
+  }
+}
+
+@layer base {
   * {
     @apply border-border;
   }
   body {
+    font-family: "Nunito", serif;
+
     background-image: linear-gradient(to top, #212121 0%, black 70%);
   }
 }
 
 body h1 {
-  @apply text-3xl font-bold text-[#66FCD1];
+  font-family: "Nunito", serif;
+  @apply text-3xl font-bold text-[#dfdfdf];
 }
 /* Hide scrollbar for the slider */
 .scrollbar-hide::-webkit-scrollbar {

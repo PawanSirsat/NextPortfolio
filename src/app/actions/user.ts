@@ -1,27 +1,26 @@
-"use server";
+"use server"
 
-import { uploadImageToCloudinary } from "@/lib/CloudinaryUpload";
-import { UploadAndSaveImageParams } from "@/lib/Datatye";
-import { client } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server";
-import Error from "next/error";
+import { uploadImageToCloudinary } from "@/lib/CloudinaryUpload"
+import { client } from "@/lib/prisma"
+import { currentUser } from "@clerk/nextjs/server"
+import { UploadAndSaveImageParams } from "../../../utils/type"
 
 // Authenticate user
 export const onAuthenticateUser = async () => {
   try {
-    const user = await currentUser();
+    const user = await currentUser()
     if (!user) {
-      return { status: 403 };
+      return { status: 403 }
     }
 
     const existingUser = await client.user.findUnique({
       where: {
         clerkUserId: user.id,
       },
-    });
+    })
 
     if (existingUser) {
-      return { status: 200, user: existingUser };
+      return { status: 200, user: existingUser }
     }
 
     const newUser = await client.user.create({
@@ -30,36 +29,36 @@ export const onAuthenticateUser = async () => {
         email: user.emailAddresses[0]?.emailAddress ?? "",
         username: user.username || "defaultUsername",
       },
-    });
+    })
 
     return newUser
       ? { status: 201, user: newUser }
-      : { status: 400, message: "Failed to create new user." };
+      : { status: 400, message: "Failed to create new user." }
   } catch (error) {
-    console.error("🔴 ERROR:", error);
-    return { status: 500, message: "Internal server error." };
+    console.error("🔴 ERROR:", error)
+    return { status: 500, message: "Internal server error." }
   }
-};
+}
 
 // Get user by Clerk ID
 export const getUserByClerkId = async (clerkUserId: string) => {
   try {
     return await client.user.findUnique({
       where: { clerkUserId },
-    });
+    })
   } catch (error) {
-    console.error("🔴 ERROR:", error);
+    console.error("🔴 ERROR:", error)
   }
-};
+}
 
 // Get all users
 export const getAllUsers = async () => {
   try {
-    return await client.user.findMany();
+    return await client.user.findMany()
   } catch (error) {
-    console.error("🔴 ERROR:", error);
+    console.error("🔴 ERROR:", error)
   }
-};
+}
 
 // Update user by Clerk ID
 export const updateUser = async (
@@ -68,15 +67,15 @@ export const updateUser = async (
 ) => {
   try {
     if (!clerkUserId) {
-      console.log("Clerk User ID is required.");
+      console.log("Clerk User ID is required.")
     }
 
     const user = await client.user.findUnique({
       where: { clerkUserId },
-    });
+    })
 
     if (!user) {
-      return { status: 404, message: "User not found." };
+      return { status: 404, message: "User not found." }
     }
 
     const updatedUser = await client.user.update({
@@ -86,18 +85,18 @@ export const updateUser = async (
         lastname: updates.lastname || user.lastname,
         bio: updates.bio || user.bio,
       },
-    });
+    })
 
     return {
       status: 200,
       message: "User updated successfully.",
       user: updatedUser,
-    };
+    }
   } catch (error) {
-    console.error("🔴 ERROR:", error);
-    return { status: 500, message: "Failed to update user." };
+    console.error("🔴 ERROR:", error)
+    return { status: 500, message: "Failed to update user." }
   }
-};
+}
 
 // Save image URL to database
 const saveImageURLToDatabase = async (
@@ -110,27 +109,27 @@ const saveImageURLToDatabase = async (
       data: {
         profilePicture: imageUrl,
       },
-    });
+    })
 
-    console.log("Image URL saved to database successfully.");
+    console.log("Image URL saved to database successfully.")
   } catch (error) {
-    console.error("🔴 ERROR:", error);
-    throw error;
+    console.error("🔴 ERROR:", error)
+    throw error
   }
-};
+}
 
 export const uploadAndSaveImage = async ({
   filePath,
   userId,
 }: UploadAndSaveImageParams): Promise<string> => {
   try {
-    console.log(filePath, userId);
+    console.log(filePath, userId)
 
-    const imageUrl = await uploadImageToCloudinary(filePath);
-    await saveImageURLToDatabase(imageUrl, userId);
-    return userId;
+    const imageUrl = await uploadImageToCloudinary(filePath)
+    await saveImageURLToDatabase(imageUrl, userId)
+    return userId
   } catch (error) {
-    console.error("🔴 ERROR:", error);
-    throw error;
+    console.error("🔴 ERROR:", error)
+    throw error
   }
-};
+}

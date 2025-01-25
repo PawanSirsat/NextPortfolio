@@ -31,7 +31,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
     <Card className="w-full">
       <CardHeader className="p-0">
         <Image
-          src={placeholder}
+          src={image || placeholder}
           alt={title}
           width={400}
           height={200}

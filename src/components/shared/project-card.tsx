@@ -1,10 +1,7 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+"use client"
+
+import React, { useEffect, useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -17,7 +14,9 @@ import Image from "next/image"
 import { useTechIcon } from "@/hooks/useTechIcon"
 import { ExternalLink, Github, Star, GitFork, Eye } from "lucide-react"
 import placeholder from "/assets/images/project-placeholder.svg"
-import { ProjectCardProps } from "../../../utils/type"
+import type { ProjectCardProps } from "../../../utils/type"
+import { fetchGitHubData } from "@/app/actions/github"
+import Link from "next/link"
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   name,
@@ -27,40 +26,79 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   liveDemo,
   githubRepo,
   status,
-  lastUpdated,
-  stars,
-  forks,
   views,
 }) => {
+  const [repoData, setRepoData] = useState<{
+    stars: number
+    forks: number
+    lastUpdated: string
+  } | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
+
   const Icons = technologies.map((tech) => useTechIcon(tech))
 
-  return (
-    <Card className="w-full flex flex-col">
-      <CardHeader className="p-0">
-        <Image
-          src={placeholder || "/placeholder.svg"}
-          alt={name}
-          width={400}
-          height={200}
-          className="w-full h-48 object-cover rounded-t-lg dark:filter dark:invert"
-        />
-        <Badge
-          variant={
-            status === "Completed"
-              ? "default"
-              : status === "In Progress"
-              ? "secondary"
-              : "outline"
+  useEffect(() => {
+    const fetchRepoData = async () => {
+      if (githubRepo) {
+        const [, , , owner, repo] = githubRepo?.split("/") || []
+        if (owner && repo) {
+          setIsLoading(true)
+          try {
+            const data = await fetchGitHubData(owner, repo)
+            setRepoData({
+              stars: data.stars || 0,
+              forks: data.forks || 0,
+              lastUpdated: data.lastUpdated || "N/A",
+            })
+            setIsError(false)
+          } catch (error) {
+            setIsError(true)
+          } finally {
+            setIsLoading(false)
           }
-          className="absolute top-2 right-2"
-        >
-          {status}
-        </Badge>
+        }
+      }
+    }
+
+    fetchRepoData()
+  }, [githubRepo])
+
+  return (
+    <Card className="w-full flex flex-col overflow-hidden">
+      <CardHeader className="p-0 relative">
+        <Link href="/profile/projects/sda">
+          <Image
+            src={image || placeholder}
+            alt={name}
+            width={400}
+            height={200}
+            className="w-full h-48 object-cover rounded-t-lg dark:filter dark:invert"
+          />
+          <Badge
+            variant={
+              status === "Completed"
+                ? "default"
+                : status === "In Progress"
+                ? "secondary"
+                : "destructive"
+            }
+            className="absolute top-2 right-2"
+          >
+            {status}
+          </Badge>
+        </Link>
       </CardHeader>
       <CardContent className="p-4 flex-grow">
-        <CardTitle className="text-lg font-semibold mb-2">{name}</CardTitle>
+        <Link href="/profile/projects/sda">
+          {" "}
+          <CardTitle className="text-lg font-semibold mb-2 underline ">
+            {name}
+          </CardTitle>
+        </Link>
+
         <p className="text-sm text-muted-foreground mb-4">{description}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-2">
           {technologies.map((tech, index) => {
             const Icon = Icons[index]
             return (
@@ -83,22 +121,32 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             )
           })}
         </div>
-        <div className="text-sm text-muted-foreground">
-          Last updated: {lastUpdated}
-        </div>
-      </CardContent>
-      <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 justify-between items-center">
-        <div className="flex gap-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Star className="w-4 h-4" /> {stars}
-          </span>
-          <span className="flex items-center gap-1">
-            <GitFork className="w-4 h-4" /> {forks}
-          </span>
-          <span className="flex items-center gap-1">
-            <Eye className="w-4 h-4" /> {views}
-          </span>
-        </div>
+        {isLoading ? (
+          <p className="text-sm text-muted-foreground mb-2">
+            Loading GitHub data...
+          </p>
+        ) : isError ? (
+          <p className="text-sm text-gray-400 mb-2">
+            Error fetching GitHub data
+          </p>
+        ) : repoData ? (
+          <>
+            <div className="text-sm text-muted-foreground mb-2">
+              Last updated: {repoData.lastUpdated}
+            </div>
+            <div className="flex gap-4 text-sm text-muted-foreground mb-4">
+              <span className="flex items-center gap-1">
+                <Star className="w-4 h-4" /> {repoData.stars}
+              </span>
+              <span className="flex items-center gap-1">
+                <GitFork className="w-4 h-4" /> {repoData.forks}
+              </span>
+              <span className="flex items-center gap-1">
+                <Eye className="w-4 h-4" /> {views}
+              </span>
+            </div>
+          </>
+        ) : null}
         <div className="flex gap-2">
           {liveDemo && (
             <Button variant="outline" size="sm" asChild>
@@ -117,7 +165,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </Button>
           )}
         </div>
-      </CardFooter>
+      </CardContent>
     </Card>
   )
 }

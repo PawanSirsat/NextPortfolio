@@ -11,9 +11,9 @@ import { toast } from "sonner"
 import EditProfilePopup from "@/components/shared/EditProfilePopupProps"
 import { MdOutlineEdit } from "react-icons/md"
 import { Button } from "@/components/ui/button"
-import ToggleButtons from "./components.tsx/ToggleButtons"
-import Projects from "./components.tsx/Projects"
-import Articles from "./components.tsx/Articles"
+import ToggleButtons from "./components/ToggleButtons"
+import Projects from "./components/Projects"
+import Articles from "./components/Articles"
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false)
@@ -111,7 +111,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex flex-col items-start p-5 text-white">
+    <div className="flex flex-col items-start text-white">
       {/* Profile Header */}
       <div className="flex items-center gap-5 mb-10 flex-wrap">
         <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-800 flex items-center justify-center">
