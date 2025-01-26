@@ -1,17 +1,8 @@
-import ProjectCard from "@/components/shared/ProjectCard"
 import React from "react"
-import Art from "/assets/images/aws.png"
 import { dummyArticles } from "@/hooks/utils"
 import ArticleCard from "@/components/shared/article-cars"
 
 const LatestArticles = () => {
-  const projects = Array(6).fill({
-    title: "AWS vs Azure vs GCP: Which Cloud Provider is Right for You?",
-    author: "Swapnil Ingole",
-    img: Art,
-    followers: "1.2k",
-  })
-
   return (
     <>
       <h2 className="mb-6 mt-6 text-xl font-bold text-left">Latest Articles</h2>

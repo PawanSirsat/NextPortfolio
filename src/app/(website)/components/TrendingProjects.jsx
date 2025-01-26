@@ -1,16 +1,8 @@
 import React from "react"
-import Art from "/assets/images/Art.jpg"
 import { dummyProjects } from "@/hooks/utils"
 import ProjectCard from "@/components/shared/project-card"
 
 const TrendingProjects = () => {
-  const projects = Array(6).fill({
-    title: "PhotoShop",
-    author: "Pawan Sirsat",
-    img: Art,
-    followers: "1.2k",
-  })
-
   return (
     <>
       <h2 className="mb-6 text-xl font-bold text-left">Trending Projects</h2>
