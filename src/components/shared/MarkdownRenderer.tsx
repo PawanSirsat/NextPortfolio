@@ -22,9 +22,9 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
           <h2 className="text-2xl font-semibold my-3" {...props} />
         ),
         p: ({ node, ...props }) => <p className="text-base my-2" {...props} />,
-        code({ node, inline, className, children, ...props }) {
+        code({ node, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "")
-          return !inline && match ? (
+          return match ? (
             <SyntaxHighlighter
               style={dracula}
               language={match[1]}
