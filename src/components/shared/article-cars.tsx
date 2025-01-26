@@ -8,7 +8,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { CalendarIcon, ClockIcon } from "lucide-react"
 import Image from "next/image"
-import placeholder from "../../assets/images/project-placeholder.svg"
+import placeholder from "@assets/images/project-placeholder.svg"
 interface ArticleCardProps {
   title: string
   excerpt: string

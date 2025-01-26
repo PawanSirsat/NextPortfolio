@@ -13,7 +13,7 @@ import {
 import Image from "next/image"
 import { useTechIcon } from "@/hooks/useTechIcon"
 import { ExternalLink, Github, Star, GitFork, Eye } from "lucide-react"
-import placeholder from "../../assets/images/project-placeholder.svg"
+import placeholder from "@assets/images/project-placeholder.svg"
 import type { ProjectCardProps } from "../../../utils/type"
 import { fetchGitHubData } from "@/app/actions/github"
 import Link from "next/link"
