@@ -1,5 +1,4 @@
 "use client"
-
 import React from "react"
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
@@ -24,7 +23,7 @@ import {
   Calendar,
   Clock,
 } from "lucide-react"
-import placeholder from "/assets/images/project-placeholder.svg"
+import placeholder from "../../assets/images/project-placeholder.svg"
 import ReactMarkdown from "react-markdown"
 import MarkdownRenderer from "@/components/shared/MarkdownRenderer"
 import { content } from "@/hooks/utils"
