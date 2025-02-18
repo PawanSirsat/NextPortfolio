@@ -7,11 +7,8 @@ export interface ProjectCardProps {
   liveDemo?: string;
   githubRepo?: string;
   status: "In Progress" | "Completed" | "Archived";
-  lastUpdated: string;
-  stars?: number;
-  forks?: number;
   views?: number;
-  updatedAt: Date;
+  updatedAt?: string;
 }
 
 export interface UploadAndSaveImageParams {

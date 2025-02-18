@@ -91,9 +91,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Contact</h3>
             <p className="text-sm">
-              Email: example@example.com
+              Email: p1.sirsat1998@gmail.com
               <br />
-              Phone: +1 (123) 456-7890
+              Phone: +91 9518994028
             </p>
             <Button
               variant="outline"

@@ -27,7 +27,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { ProjectMedia } from "./RenderMedia";
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ProjectCard: React.FC<any> = ({
   id,
   title,
   description,
@@ -47,7 +47,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const Icons = technologies.map((tech) => useTechIcon(tech));
+  const Icons: (React.ComponentType<{ className: string }> | null)[] =
+    technologies?.map((tech: string) => useTechIcon(tech));
 
   useEffect(() => {
     const fetchRepoData = async () => {
@@ -107,7 +108,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         <p className="text-sm text-muted-foreground mb-4">{description}</p>
         <div className="flex flex-wrap gap-2 mb-2">
-          {technologies.slice(0, 3).map((tech, index) => {
+          {technologies.slice(0, 3).map((tech: string, index: number) => {
             const Icon = Icons[index];
             return (
               <TooltipProvider key={tech}>
