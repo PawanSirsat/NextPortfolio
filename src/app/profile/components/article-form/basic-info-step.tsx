@@ -1,11 +1,23 @@
-import { useFormContext } from "react-hook-form"
-import type { ArticleFormValues } from "@/lib/validations/article"
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useFormContext } from "react-hook-form";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ArticleFormValues } from "../../../../../utils/validations/article";
 
 export function BasicInfoStep() {
-  const { control } = useFormContext<ArticleFormValues>()
+  const { control } = useFormContext<ArticleFormValues>();
 
   return (
     <div className="space-y-4">
@@ -57,6 +69,5 @@ export function BasicInfoStep() {
         )}
       />
     </div>
-  )
+  );
 }
-

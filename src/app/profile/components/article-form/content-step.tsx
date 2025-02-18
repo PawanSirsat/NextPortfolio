@@ -1,10 +1,16 @@
-import { useFormContext } from "react-hook-form"
-import type { ArticleFormValues } from "@/lib/validations/article"
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
-import { Textarea } from "@/components/ui/textarea"
+import { useFormContext } from "react-hook-form";
+import { ArticleFormValues } from "../../../../../utils/validations/article";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 
 export function ContentStep() {
-  const { control } = useFormContext<ArticleFormValues>()
+  const { control } = useFormContext<ArticleFormValues>();
 
   return (
     <div className="space-y-4">
@@ -22,6 +28,5 @@ export function ContentStep() {
         )}
       />
     </div>
-  )
+  );
 }
-
