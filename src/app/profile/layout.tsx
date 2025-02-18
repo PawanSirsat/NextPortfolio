@@ -6,8 +6,10 @@ import Footer from "@/components/layout/footer";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const auth = await onAuthenticateUser();
-  if (!auth.user?.clerkUserId) redirect("/auth/sign-in");
-  if (!auth.user.clerkUserId) redirect("/auth/sign-in");
+
+  if (!auth.user?.clerkUserId) {
+    return redirect("/auth/sign-in");
+  }
 
   return (
     <div>
