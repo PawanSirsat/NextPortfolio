@@ -47,12 +47,12 @@ export function FeaturesStep() {
           <FormField
             key={field.id}
             control={control}
-            name={`keyFeatures.${index}`}
-            render={({ field }) => (
+            name={`keyFeatures.${index}.value`}
+            render={({ field: formField }) => (
               <FormItem>
                 <FormControl>
                   <div className="flex items-center gap-2">
-                    <Input {...field} />
+                    <Input {...formField} />
                     <Button
                       type="button"
                       variant="ghost"
@@ -72,7 +72,9 @@ export function FeaturesStep() {
           type="button"
           variant="outline"
           size="sm"
-          onClick={() => appendKeyFeature("")}
+          onClick={() =>
+            appendKeyFeature({ id: String(Date.now()), value: "" })
+          }
         >
           Add Key Feature
         </Button>
@@ -84,12 +86,12 @@ export function FeaturesStep() {
           <FormField
             key={field.id}
             control={control}
-            name={`challenges.${index}`}
-            render={({ field }) => (
+            name={`challenges.${index}.value`}
+            render={({ field: formField }) => (
               <FormItem>
                 <FormControl>
                   <div className="flex items-center gap-2">
-                    <Input {...field} />
+                    <Input {...formField} />
                     <Button
                       type="button"
                       variant="ghost"
@@ -109,7 +111,7 @@ export function FeaturesStep() {
           type="button"
           variant="outline"
           size="sm"
-          onClick={() => appendChallenge("")}
+          onClick={() => appendChallenge({ id: String(Date.now()), value: "" })}
         >
           Add Challenge
         </Button>
@@ -121,12 +123,12 @@ export function FeaturesStep() {
           <FormField
             key={field.id}
             control={control}
-            name={`lessons.${index}`}
-            render={({ field }) => (
+            name={`lessons.${index}.value`}
+            render={({ field: formField }) => (
               <FormItem>
                 <FormControl>
                   <div className="flex items-center gap-2">
-                    <Input {...field} />
+                    <Input {...formField} />
                     <Button
                       type="button"
                       variant="ghost"
@@ -146,7 +148,7 @@ export function FeaturesStep() {
           type="button"
           variant="outline"
           size="sm"
-          onClick={() => appendLesson("")}
+          onClick={() => appendLesson({ id: String(Date.now()), value: "" })}
         >
           Add Lesson
         </Button>

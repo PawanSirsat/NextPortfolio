@@ -1,3 +1,5 @@
+"use client";
+
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { ProjectFormValues } from "../../../../../utils/validations/project";
 import {
@@ -24,15 +26,15 @@ export function TechnologiesStep() {
         <FormField
           key={field.id}
           control={control}
-          name={`technologies.${index}`}
-          render={({ field }) => (
+          name={`technologies.${index}.value`}
+          render={({ field: formField }) => (
             <FormItem>
               <FormLabel className={index !== 0 ? "sr-only" : undefined}>
                 {index === 0 ? "Technologies" : ""}
               </FormLabel>
               <FormControl>
                 <div className="flex items-center gap-2">
-                  <Input {...field} />
+                  <Input {...formField} />
                   <Button
                     type="button"
                     variant="ghost"
@@ -53,7 +55,7 @@ export function TechnologiesStep() {
         variant="outline"
         size="sm"
         className="mt-2"
-        onClick={() => append("")}
+        onClick={() => append({ id: String(Date.now()), value: "" })}
       >
         Add Technology
       </Button>

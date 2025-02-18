@@ -1,3 +1,4 @@
+"use client";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { ArticleFormValues } from "../../../../../utils/validations/article";
 import {
@@ -24,15 +25,15 @@ export function TagsStep() {
         <FormField
           key={field.id}
           control={control}
-          name={`tags.${index}`}
-          render={({ field }) => (
+          name={`tags.${index}.value`} // Access the 'value' property
+          render={({ field: formField }) => (
             <FormItem>
               <FormLabel className={index !== 0 ? "sr-only" : undefined}>
                 {index === 0 ? "Tags" : ""}
               </FormLabel>
               <FormControl>
                 <div className="flex items-center gap-2">
-                  <Input {...field} />
+                  <Input {...formField} />
                   <Button
                     type="button"
                     variant="ghost"
@@ -53,7 +54,7 @@ export function TagsStep() {
         variant="outline"
         size="sm"
         className="mt-2"
-        onClick={() => append("")}
+        onClick={() => append({ id: String(Date.now()), value: "" })} // Append an object
       >
         Add Tag
       </Button>
