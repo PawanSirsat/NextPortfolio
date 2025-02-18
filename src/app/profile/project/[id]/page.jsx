@@ -38,120 +38,121 @@ const DetailedProjectPage = () => {
   if (!project) return <div>Project not found.</div>;
 
   return (
-    <div className="container mx-auto">
+    <div className="">
       <Card className="w-full overflow-hidden">
-        <CardHeader className="p-0 relative">
-          <ProjectMedia media={project.media} alt={project.name} />
-
-          <Badge
-            variant={
-              project.status === "Completed"
-                ? "default"
-                : project.status === "In Progress"
-                ? "secondary"
-                : "outline"
-            }
-            className="absolute top-4 right-4"
-          >
-            {project.status || "N/A"}
-          </Badge>
-        </CardHeader>
-        <CardContent className="p-6">
-          {/* Title and Description */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-            <div>
-              <CardTitle className="text-3xl font-bold mb-2">
-                {project.title || "Untitled Project"}
-              </CardTitle>
-              <p className="text-lg text-muted-foreground mb-4">
-                {project.description || "No description available."}
-              </p>
+        <CardContent className="p-2">
+          <div className="flex flex-col lg:flex-row">
+            <div className="lg:w-1/2 lg:pr-6 mb-6 lg:mb-0">
+              <CardHeader className="p-0 relative mb-4">
+                <ProjectMedia media={project.media} alt={project.name} />
+                <Badge
+                  variant={
+                    project.status === "Completed"
+                      ? "default"
+                      : project.status === "In Progress"
+                      ? "secondary"
+                      : "outline"
+                  }
+                  className="absolute top-4 right-4"
+                >
+                  {project.status || "N/A"}
+                </Badge>
+              </CardHeader>
             </div>
-            <div className="flex gap-2 mt-4 md:mt-0">
-              {project.liveDemo && (
-                <Button variant="outline" size="sm" asChild>
-                  <a
-                    href={project.liveDemo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Live Demo
-                  </a>
-                </Button>
-              )}
-              {project.githubRepo && (
-                <Button variant="outline" size="sm" asChild>
-                  <a
-                    href={project.githubRepo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="w-4 h-4 mr-2" />
-                    GitHub
-                  </a>
-                </Button>
-              )}
-            </div>
-          </div>
-
-          {/* Metadata */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div className="flex items-center">
-              <Calendar className="w-5 h-5 mr-2" />
-              <span>
-                Started:{" "}
-                {format(new Date(project.startDate), "MMM dd, yyyy") || "N/A"}
-              </span>
-            </div>
-            <div className="flex items-center">
-              <Clock className="w-5 h-5 mr-2" />
-              <span>Duration: {project.duration || "N/A"}</span>
-            </div>
-            <div className="flex items-center">
-              <Eye className="w-5 h-5 mr-2" />
-              <span>Views: {project.views || "N/A"}</span>
+            <div className="lg:w-1/2">
+              <div className="flex flex-col justify-between">
+                <div>
+                  <CardTitle className="text-3xl font-bold mb-2 md:mt-4">
+                    {project.title || "Untitled Project"}
+                  </CardTitle>
+                  <p className="text-lg text-muted-foreground mb-4">
+                    {project.description || "No description available."}
+                  </p>
+                  <div className="flex gap-2 mb-4 md:mt-0">
+                    {project.liveDemo && (
+                      <Button variant="outline" size="sm" asChild>
+                        <a
+                          href={project.liveDemo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Live Demo
+                        </a>
+                      </Button>
+                    )}
+                    {project.githubRepo && (
+                      <Button variant="outline" size="sm" asChild>
+                        <a
+                          href={project.githubRepo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github className="w-4 h-4 mr-2" />
+                          GitHub
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                  {/* Technologies Used */}
+                  <div className="mb-6">
+                    {project.technologies && project.technologies.length > 0 ? (
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, index) => {
+                          const Icon = Icons[index];
+                          return (
+                            <TooltipProvider key={tech}>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <Badge
+                                    variant="secondary"
+                                    className="flex items-center gap-1 px-3 py-1"
+                                  >
+                                    {Icon && <Icon className="w-4 h-4" />}
+                                    {tech}
+                                  </Badge>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{tech}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        No technologies listed.
+                      </p>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                    <div className="flex items-center">
+                      <Calendar className="w-5 h-5 mr-2" />
+                      <span>
+                        Started:{" "}
+                        {format(new Date(project.startDate), "MMM dd, yyyy") ||
+                          "N/A"}
+                      </span>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="w-5 h-5 mr-2" />
+                      <span>Duration: {project.duration || "N/A"}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Eye className="w-5 h-5 mr-2" />
+                      <span>Views: {project.views || "N/A"}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <Separator className="my-6" />
 
-          {/* Technologies Used */}
-          <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2">Technologies Used</h3>
-            {project.technologies && project.technologies.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, index) => {
-                  const Icon = Icons[index];
-                  return (
-                    <TooltipProvider key={tech}>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Badge
-                            variant="secondary"
-                            className="flex items-center gap-1 px-3 py-1"
-                          >
-                            {Icon && <Icon className="w-4 h-4" />}
-                            {tech}
-                          </Badge>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{tech}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  );
-                })}
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                No technologies listed.
-              </p>
-            )}
-          </div>
-
           {/* Project Details */}
-          <div className="mb-6">
+          <div className="mb-6 p-2">
             <h3 className="text-xl font-semibold mb-2">Project Details</h3>
             {project.longDescription ? (
               <MarkdownRenderer content={project.longDescription} />

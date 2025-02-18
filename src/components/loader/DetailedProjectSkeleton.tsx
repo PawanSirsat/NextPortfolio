@@ -4,7 +4,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 export const DetailedProjectSkeleton = () => {
   return (
-    <div className="container mx-auto">
+    <div className="">
       <div className="w-full overflow-hidden">
         {/* Image Skeleton */}
         <div className="w-full h-64 relative">
