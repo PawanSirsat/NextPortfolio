@@ -78,7 +78,6 @@ export function ProjectForm() {
 
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
-    defaultValues: formData,
   });
 
   const onSubmit = async (data: ProjectFormValues) => {
@@ -130,9 +129,9 @@ export function ProjectForm() {
       const activeTab = tabsRef.current.querySelector(`[data-state="active"]`);
       if (activeTab) {
         tabsRef.current.scrollLeft =
-          activeTab.offsetLeft -
+          (activeTab as HTMLElement).offsetLeft -
           tabsRef.current.offsetWidth / 2 +
-          activeTab.offsetWidth / 2;
+          (activeTab as HTMLElement).offsetWidth / 2;
       }
     }
   }, [currentStep]);
