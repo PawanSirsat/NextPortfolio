@@ -1,77 +1,77 @@
 import { ProjectCardProps } from "./type";
 
-export const dummyProjects: ProjectCardProps[] = [
-  {
-    name: "E-commerce Platform",
-    description:
-      "A full-stack e-commerce solution with user authentication and payment integration.",
-    image: "",
-    technologies: ["React", "Node", "TypeScript"],
-    liveDemo: "https://example-ecommerce.com",
-    githubRepo: "https://github.com/PawanSirsat/SplitWise",
-    status: "Completed",
-    lastUpdated: "2023-05-15",
-    stars: 120,
-    forks: 35,
-    views: 1500,
-  },
-  {
-    name: "Task Management App",
-    description:
-      "A Kanban-style task management application with real-time updates.",
-    image: "",
-    technologies: ["Vue", "Django", "Python"],
-    liveDemo: "https://task-manager-example.com",
-    githubRepo: "https://github.com/username/task-management-app",
-    status: "In Progress",
-    lastUpdated: "2023-05-10",
-    stars: 85,
-    forks: 20,
-    views: 950,
-  },
-  {
-    name: "Social Media Dashboard",
-    description:
-      "An analytics dashboard for social media managers with data visualization.",
-    image: "",
-    technologies: ["Angular", "Flask", "TypeScript"],
-    liveDemo: "https://social-dashboard-demo.com",
-    githubRepo: "https://github.com/username/social-media-dashboard",
-    status: "Completed",
-    lastUpdated: "2023-05-05",
-    stars: 200,
-    forks: 50,
-    views: 2500,
-  },
-  {
-    name: "Fitness Tracker",
-    description:
-      "A mobile-first fitness tracking app with workout plans and progress charts.",
-    image: "",
-    technologies: ["React", "Rails", "JavaScript"],
-    liveDemo: "https://fitness-tracker-example.com",
-    githubRepo: "https://github.com/username/fitness-tracker",
-    status: "In Progress",
-    lastUpdated: "2023-04-30",
-    stars: 150,
-    forks: 40,
-    views: 1800,
-  },
-  {
-    name: "AI-powered Chatbot",
-    description:
-      "An intelligent chatbot for customer support with natural language processing.",
-    image: "",
-    technologies: ["Python", "React", "TypeScript"],
-    liveDemo: "https://ai-chatbot-demo.com",
-    githubRepo: "https://github.com/username/ai-chatbot",
-    status: "Archived",
-    lastUpdated: "2023-04-25",
-    stars: 300,
-    forks: 75,
-    views: 3500,
-  },
-];
+// export const dummyProjects: ProjectCardProps[] = [
+//   {
+//     title: "E-commerce Platform",
+//     description:
+//       "A full-stack e-commerce solution with user authentication and payment integration.",
+//     media: "",
+//     technologies: ["React", "Node", "TypeScript"],
+//     liveDemo: "https://example-ecommerce.com",
+//     githubRepo: "https://github.com/PawanSirsat/SplitWise",
+//     status: "Completed",
+//     updatedAt?: "2023-05-15",
+//     stars: 120,
+//     forks: 35,
+//     views: 1500,
+//   },
+//   {
+//     name: "Task Management App",
+//     description:
+//       "A Kanban-style task management application with real-time updates.",
+//     image: "",
+//     technologies: ["Vue", "Django", "Python"],
+//     liveDemo: "https://task-manager-example.com",
+//     githubRepo: "https://github.com/username/task-management-app",
+//     status: "In Progress",
+//     lastUpdated: "2023-05-10",
+//     stars: 85,
+//     forks: 20,
+//     views: 950,
+//   },
+//   {
+//     name: "Social Media Dashboard",
+//     description:
+//       "An analytics dashboard for social media managers with data visualization.",
+//     image: "",
+//     technologies: ["Angular", "Flask", "TypeScript"],
+//     liveDemo: "https://social-dashboard-demo.com",
+//     githubRepo: "https://github.com/username/social-media-dashboard",
+//     status: "Completed",
+//     lastUpdated: "2023-05-05",
+//     stars: 200,
+//     forks: 50,
+//     views: 2500,
+//   },
+//   {
+//     name: "Fitness Tracker",
+//     description:
+//       "A mobile-first fitness tracking app with workout plans and progress charts.",
+//     image: "",
+//     technologies: ["React", "Rails", "JavaScript"],
+//     liveDemo: "https://fitness-tracker-example.com",
+//     githubRepo: "https://github.com/username/fitness-tracker",
+//     status: "In Progress",
+//     lastUpdated: "2023-04-30",
+//     stars: 150,
+//     forks: 40,
+//     views: 1800,
+//   },
+//   {
+//     name: "AI-powered Chatbot",
+//     description:
+//       "An intelligent chatbot for customer support with natural language processing.",
+//     image: "",
+//     technologies: ["Python", "React", "TypeScript"],
+//     liveDemo: "https://ai-chatbot-demo.com",
+//     githubRepo: "https://github.com/username/ai-chatbot",
+//     status: "Archived",
+//     lastUpdated: "2023-04-25",
+//     stars: 300,
+//     forks: 75,
+//     views: 3500,
+//   },
+// ];
 
 export const dummyArticles = [
   {
