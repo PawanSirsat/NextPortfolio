@@ -6,7 +6,7 @@ const AuthCallbackPage = async () => {
   console.log(auth);
 
   if (auth.status === 200 || auth.status === 201) {
-    return redirect(`/profile`);
+    return redirect(`/`);
   }
 
   return redirect("/auth/sign-in");
