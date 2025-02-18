@@ -93,14 +93,13 @@
     @apply border-border;
   }
   body {
-    font-family: "Nunito", serif;
-
+    font-family: var(--font-Nunito), sans-serif;
     background-image: linear-gradient(to top, #212121 0%, black 70%);
   }
 }
 
 body h1 {
-  font-family: "Nunito", serif;
+  font-family: var(--font-Nunito), sans-serif;
   @apply text-3xl font-bold text-[#dfdfdf];
 }
 /* Hide scrollbar for the slider */

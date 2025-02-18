@@ -4,6 +4,13 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme";
 import { Provider } from "@/lib/Provider";
 import { Toaster } from "sonner";
+import { Nunito } from "next/font/google";
+
+const nunito = Nunito({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-Nunito",
+});
 
 export const metadata: Metadata = {
   title: "NextPortfolio",
@@ -18,7 +25,7 @@ export default function RootLayout({
   return (
     <>
       <ClerkProvider>
-        <html lang="en">
+        <html lang="en" className={`${nunito.variable}`}>
           <body>
             {" "}
             <ThemeProvider
