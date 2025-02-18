@@ -9,7 +9,10 @@ const AuthCallbackPage = async () => {
     return redirect(`/`);
   }
 
-  return redirect("/auth/sign-in");
+  if (auth.status === 403 || auth.status === 500 || auth.status === 400) {
+    return redirect("/auth/sign-in");
+  }
+  return redirect(`/`);
 };
 
 export default AuthCallbackPage;
