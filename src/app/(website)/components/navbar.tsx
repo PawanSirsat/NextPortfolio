@@ -4,6 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { User } from "lucide-react";
 import Link from "next/link";
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import Image from "next/image";
 
 type Props = {};
 
@@ -15,7 +16,12 @@ const Navbar = async () => {
       {/* Logo and Menu */}
       <div className="flex items-center gap-x-3">
         <Link href="/">
-          <h1 className="text-xl md:text-3xl font-semibold">NxtFolio</h1>
+          <Image
+            src="/logo.png"
+            alt="NextPortfolio Logo"
+            width={150}
+            height={40}
+          />
         </Link>
       </div>
 
