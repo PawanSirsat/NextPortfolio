@@ -14,7 +14,7 @@ export const onAuthenticateUser = async () => {
     const user = await currentUser();
 
     if (!user) {
-      return { status: 403 };
+      return { status: 403, message: "Not authenticated" };
     }
 
     const existingUser = await client.user.findUnique({
@@ -40,7 +40,7 @@ export const onAuthenticateUser = async () => {
       ? { status: 201, user: newUser }
       : { status: 400, message: "Failed to create new user." };
   } catch (error) {
-    console.error("🔴 ERROR:", error);
+    console.error("ERROR:", error);
     return { status: 500, message: "Internal server error." };
   }
 };

@@ -27,7 +27,6 @@ export default function RootLayout({
       <ClerkProvider>
         <html lang="en" className={`${nunito.variable}`}>
           <body>
-            {" "}
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
