@@ -8,8 +8,8 @@ export default function Home() {
     <>
       <SearchBar />
       <CategoriesBar />
-      <TrendingProjects />
-      <LatestArticles />
+      {/* <TrendingProjects />
+      <LatestArticles /> */}
     </>
   );
 }

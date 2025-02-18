@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Button } from "@/components/ui/button"
-import ArticleCard from "@/components/shared/article-cars"
-import { dummyArticles } from "@/hooks/utils"
+import type React from "react";
+import { Button } from "@/components/ui/button";
+import ArticleCard from "@/components/shared/article-cards";
+import { dummyArticles } from "../../../../utils/data";
 
 const Articles: React.FC = () => {
   return (
@@ -24,7 +24,7 @@ const Articles: React.FC = () => {
         </p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Articles
+export default Articles;

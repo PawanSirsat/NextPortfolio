@@ -1,85 +1,89 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import Image from "next/image"
-import { useTechIcon } from "@/hooks/useTechIcon"
-import { ExternalLink, Github, Star, GitFork, Eye } from "lucide-react"
-import placeholder from "@assets/images/project-placeholder.svg"
-import type { ProjectCardProps } from "../../../utils/type"
-import { fetchGitHubData } from "@/app/actions/github"
-import Link from "next/link"
+} from "@/components/ui/tooltip";
+import Image from "next/image";
+import { useTechIcon } from "@/hooks/useTechIcon";
+import {
+  ExternalLink,
+  Github,
+  Star,
+  GitFork,
+  Eye,
+  BriefcaseIcon,
+} from "lucide-react";
+import placeholder from "@assets/images/project-placeholder.svg";
+import type { ProjectCardProps } from "../../../utils/type";
+import { fetchGitHubData } from "@/app/actions/github";
+import Link from "next/link";
+import { format } from "date-fns";
+import { ProjectMedia } from "./RenderMedia";
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
-  name,
+  id,
+  title,
   description,
-  image,
-  technologies,
+  media,
+  technologies = [],
   liveDemo,
   githubRepo,
   status,
-  views,
-  lastUpdated,
+  views = 0,
+  updatedAt,
 }) => {
   const [repoData, setRepoData] = useState<{
-    stars: number
-    forks: number
-    lastUpdated: string
-  } | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
+    stars: number;
+    forks: number;
+    lastUpdated: string;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const Icons = technologies.map((tech) => useTechIcon(tech))
+  const Icons = technologies.map((tech) => useTechIcon(tech));
 
   useEffect(() => {
     const fetchRepoData = async () => {
       if (githubRepo) {
-        const [, , , owner, repo] = githubRepo?.split("/") || []
+        const [, , , owner, repo] = githubRepo?.split("/") || [];
         if (owner && repo) {
-          setIsLoading(true)
+          setIsLoading(true);
           try {
-            const data = await fetchGitHubData(owner, repo)
+            const data = await fetchGitHubData(owner, repo);
             setRepoData({
               stars: data.stars || 0,
               forks: data.forks || 0,
               lastUpdated: data.lastUpdated || "N/A",
-            })
-            setIsError(false)
+            });
+            setIsError(false);
           } catch (error) {
-            setIsError(true)
+            setIsError(true);
           } finally {
-            setIsLoading(false)
+            setIsLoading(false);
           }
         }
       }
-    }
+    };
 
-    fetchRepoData()
-  }, [githubRepo])
+    fetchRepoData();
+  }, [githubRepo]);
 
   return (
     <Card className="w-full flex flex-col overflow-hidden">
       <CardHeader className="p-0 relative">
-        <Link href="/profile/projects/sda">
-          <Image
-            src={image || placeholder}
-            alt={name}
-            width={400}
-            height={200}
-            className="w-full h-48 object-cover rounded-t-lg dark:filter dark:invert"
-          />
+        <Link href={`/profile/project/${id}`}>
+          <ProjectMedia media={media} alt={title} />
           <Badge
             variant={
               status === "Completed"
-                ? "default"
+                ? "secondary"
                 : status === "In Progress"
                 ? "secondary"
                 : "destructive"
@@ -89,19 +93,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             {status}
           </Badge>
         </Link>
+        <div className="absolute top-0 left-3 bg-indigo-600 text-white px-3 py-1 flex items-center gap-1 rounded-md shadow-md">
+          <BriefcaseIcon className="w-4 h-4" />
+          <span className="text-xs font-semibold">Project</span>
+        </div>
       </CardHeader>
       <CardContent className="p-4 flex-grow">
-        <Link href="/profile/projects/sda">
-          {" "}
-          <CardTitle className="text-lg font-semibold mb-2 underline ">
-            {name}
+        <Link href={`/profile/project/${id}`}>
+          <CardTitle className="text-lg font-semibold mb-2 underline">
+            {title}
           </CardTitle>
         </Link>
 
         <p className="text-sm text-muted-foreground mb-4">{description}</p>
         <div className="flex flex-wrap gap-2 mb-2">
-          {technologies.map((tech, index) => {
-            const Icon = Icons[index]
+          {technologies.slice(0, 3).map((tech, index) => {
+            const Icon = Icons[index];
             return (
               <TooltipProvider key={tech}>
                 <Tooltip>
@@ -119,11 +126,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            )
+            );
           })}
         </div>
         <div className="text-sm text-muted-foreground mb-2">
-          Last updated: {lastUpdated}
+          Last updated: {format(new Date(updatedAt), "MMM dd, yyyy") || "NA"}
         </div>
         {isLoading ? (
           <p className="text-sm text-muted-foreground mb-2">
@@ -168,7 +175,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default ProjectCard
+export default ProjectCard;

@@ -1,6 +1,6 @@
-import React from "react"
-import { dummyArticles } from "@/hooks/utils"
-import ArticleCard from "@/components/shared/article-cars"
+import React from "react";
+import { dummyArticles } from "../../../../utils/data";
+import ArticleCard from "@/components/shared/article-cards";
 
 const LatestArticles = () => {
   return (
@@ -22,7 +22,7 @@ const LatestArticles = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default LatestArticles
+export default LatestArticles;

@@ -1,4 +1,4 @@
-import { ProjectCardProps } from "../../utils/type"
+import { ProjectCardProps } from "./type";
 
 export const dummyProjects: ProjectCardProps[] = [
   {
@@ -71,7 +71,7 @@ export const dummyProjects: ProjectCardProps[] = [
     forks: 75,
     views: 3500,
   },
-]
+];
 
 export const dummyArticles = [
   {
@@ -119,7 +119,7 @@ export const dummyArticles = [
     readTime: "6 min read",
     tags: ["Accessibility", "Web Design", "UX"],
   },
-]
+];
 
 // content.ts
 export const content = `
@@ -188,4 +188,4 @@ bash
 cd splitwise
 npm install
 
-`
+`;

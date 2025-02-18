@@ -1,6 +1,6 @@
-import React from "react"
-import { dummyProjects } from "@/hooks/utils"
-import ProjectCard from "@/components/shared/project-card"
+import React from "react";
+import { dummyProjects } from "../../../../utils/data";
+import ProjectCard from "@/components/shared/project-card";
 
 const TrendingProjects = () => {
   return (
@@ -22,7 +22,7 @@ const TrendingProjects = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default TrendingProjects
+export default TrendingProjects;
