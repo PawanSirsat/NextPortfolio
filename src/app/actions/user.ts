@@ -66,13 +66,20 @@ export const getAllUsers = async () => {
 };
 
 // Update user by Clerk ID
+// Update user by Clerk ID
 export const updateUser = async (
   clerkUserId: string,
-  updates: { firstname?: string; lastname?: string; bio?: string }
+  updates: {
+    firstname?: string;
+    lastname?: string;
+    bio?: string;
+    username?: string;
+  }
 ) => {
   try {
     if (!clerkUserId) {
       console.log("Clerk User ID is required.");
+      return { status: 400, message: "Clerk User ID is required." }; // Added explicit return
     }
 
     const user = await client.user.findUnique({
@@ -83,12 +90,24 @@ export const updateUser = async (
       return { status: 404, message: "User not found." };
     }
 
+    // Check username uniqueness if provided
+    if (updates.username && updates.username !== user.username) {
+      const existingUserWithUsername = await client.user.findUnique({
+        where: { username: updates.username },
+      });
+
+      if (existingUserWithUsername) {
+        return { status: 409, message: "Username already taken." }; // Conflict status
+      }
+    }
+
     const updatedUser = await client.user.update({
       where: { clerkUserId },
       data: {
         firstname: updates.firstname || user.firstname,
         lastname: updates.lastname || user.lastname,
         bio: updates.bio || user.bio,
+        username: updates.username || user.username, // Include username update
       },
     });
 

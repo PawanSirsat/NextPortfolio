@@ -20,11 +20,10 @@ import {
   Eye,
   BriefcaseIcon,
 } from "lucide-react";
-import placeholder from "@assets/images/project-placeholder.svg";
-import type { ProjectCardProps } from "../../../utils/type";
+
 import { fetchGitHubData } from "@/app/actions/github";
 import Link from "next/link";
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { ProjectMedia } from "./RenderMedia";
 
 const ProjectCard: React.FC<any> = ({
@@ -38,6 +37,8 @@ const ProjectCard: React.FC<any> = ({
   status,
   views = 0,
   updatedAt,
+  User,
+  createdAt,
 }) => {
   const [repoData, setRepoData] = useState<{
     stars: number;
@@ -76,6 +77,17 @@ const ProjectCard: React.FC<any> = ({
     fetchRepoData();
   }, [githubRepo]);
 
+  const formatCreatedAt = (date: Date) => {
+    try {
+      return formatDistanceToNow(new Date(date), {
+        addSuffix: true,
+        includeSeconds: true,
+      }).replace("about ", "");
+    } catch (error) {
+      return format(new Date(date), "MMM dd, yyyy");
+    }
+  };
+
   return (
     <Card className="w-full flex flex-col overflow-hidden">
       <CardHeader className="p-0 relative">
@@ -101,8 +113,23 @@ const ProjectCard: React.FC<any> = ({
       </CardHeader>
       <CardContent className="p-4 flex-grow">
         <Link href={`/profile/project/${id}`}>
-          <CardTitle className="text-lg font-semibold mb-2 underline">
-            {title}
+          <CardTitle className="text-lg font-semibold mb-2 flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              {title}
+              {User && User.username && (
+                <Link
+                  href={`/profile/${User.username}`}
+                  className="text-sm text-gray-400 hover:underline"
+                >
+                  @{User.username}
+                </Link>
+              )}
+            </div>
+            {createdAt && (
+              <span className="text-sm text-gray-400">
+                {formatCreatedAt(createdAt)}
+              </span>
+            )}
           </CardTitle>
         </Link>
 

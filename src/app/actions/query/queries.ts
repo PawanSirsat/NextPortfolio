@@ -6,7 +6,12 @@ import {
   uploadAndSaveImage,
   uploadImage,
 } from "../user";
-import { getProjectsByUserId, deleteProject, getProjectById } from "../project";
+import {
+  getProjectsByUserId,
+  deleteProject,
+  getProjectById,
+  getProjects,
+} from "../project";
 import { ProjectFormValues } from "../../../../utils/validations/project";
 import {
   UploadAndSaveImageParams,
@@ -32,7 +37,12 @@ export const useUpdateUser = () => {
       updates,
     }: {
       clerkUserId: string;
-      updates: { firstname?: string; lastname?: string; bio?: string };
+      updates: {
+        firstname?: string;
+        lastname?: string;
+        bio?: string;
+        username?: string;
+      };
     }) => updateUser(clerkUserId, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
@@ -105,6 +115,7 @@ export const useGitHubData = (githubRepo: string | undefined) => {
 //   });
 // };
 
+// All Project By UserID
 export const useProjectsByUserId = () => {
   return useQuery({
     queryKey: ["userprojects"],
@@ -112,10 +123,19 @@ export const useProjectsByUserId = () => {
   });
 };
 
+//Project bY Project Id
 export const useProjectById = (projectId: string) => {
   return useQuery({
     queryKey: ["projectbyid", projectId],
     queryFn: () => getProjectById(projectId),
+  });
+};
+
+// Get all Projects (with Pagination)
+export const useAllProject = () => {
+  return useQuery({
+    queryKey: ["allproject"],
+    queryFn: () => getProjects(),
   });
 };
 

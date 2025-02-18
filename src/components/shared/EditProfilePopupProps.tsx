@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface EditProfilePopupProps {
   formData: {
+    username: string;
     firstname: string;
     lastname: string;
     bio: string;
@@ -23,7 +24,6 @@ interface EditProfilePopupProps {
 const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
   formData,
   professionTags,
-  username,
   email,
   onChange,
   onClose,
@@ -59,9 +59,10 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
               <input
                 type="text"
                 id="username"
-                defaultValue={username}
+                name="username"
+                value={formData.username}
+                onChange={onChange}
                 className="w-full p-2 rounded-lg bg-[#2a2a2a] text-white border border-[#3a3a3a] focus:outline-none focus:border-blue-500 transition-colors"
-                readOnly
               />
             </div>
 

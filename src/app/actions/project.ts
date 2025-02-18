@@ -63,6 +63,33 @@ export const getProjectsByUserId = async () => {
   }
 };
 
+export const getProjects = async (page = 1, pageSize = 10) => {
+  try {
+    const skip = (page - 1) * pageSize;
+
+    const [projects, totalCount] = await Promise.all([
+      client.project.findMany({
+        skip,
+        take: pageSize,
+        include: {
+          User: true,
+        },
+      }),
+      client.project.count(),
+    ]);
+
+    return {
+      projects,
+      totalCount,
+      currentPage: page,
+      totalPages: Math.ceil(totalCount / pageSize),
+    };
+  } catch (error) {
+    console.error("🔴 ERROR:", error);
+    return { status: 500, message: "Failed to fetch projects." };
+  }
+};
+
 export const getProjectById = async (projectId: string) => {
   try {
     const project = await client.project.findUnique({

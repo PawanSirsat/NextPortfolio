@@ -20,7 +20,7 @@ import { Info, X } from "lucide-react";
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("projects");
-  const [showAlert, setShowAlert] = useState(true); // Added state to control alert visibility
+  const [showAlert, setShowAlert] = useState(true);
 
   const { data: user, isLoading, error } = useCurrentUser();
 
@@ -31,6 +31,7 @@ const Profile = () => {
     firstname: "",
     lastname: "",
     bio: "",
+    username: "",
   });
 
   useEffect(() => {
@@ -39,6 +40,7 @@ const Profile = () => {
         firstname: user.user.firstname || "",
         lastname: user.user.lastname || "",
         bio: user.user.bio || "",
+        username: user.user.username || "",
       });
     }
   }, [user]);

@@ -22,26 +22,26 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">About</h3>
             <p className="text-sm">
-              This portfolio builder and home website is developed by Pawan
-              Sirsat. It showcases trending and latest projects and articles.
+              Discover, showcase, collaborate. Your projects and articles, in
+              one place.
             </p>
             <div className="flex space-x-4 mt-4">
               <Link
-                href="https://github.com/your-github"
+                href="https://github.com/PawanSirsat"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Github className="w-6 h-6 hover:text-white transition-colors" />
               </Link>
               <Link
-                href="https://linkedin.com/in/your-linkedin"
+                href="https://www.linkedin.com/in/pawan-sirsat-72a0ba174"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Linkedin className="w-6 h-6 hover:text-white transition-colors" />
               </Link>
               <Link
-                href="https://twitter.com/your-twitter"
+                href="https://x.com/sirsat_pawan"
                 target="_blank"
                 rel="noopener noreferrer"
               >
