@@ -151,18 +151,6 @@ const DetailedProjectPage = () => {
 
           <Separator className="my-6" />
 
-          {/* Project Details */}
-          <div className="mb-6 p-2">
-            <h3 className="text-xl font-semibold mb-2">Project Details</h3>
-            {project.longDescription ? (
-              <MarkdownRenderer content={project.longDescription} />
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                No project details available.
-              </p>
-            )}
-          </div>
-
           {/* Key Features and Challenges */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
@@ -234,6 +222,17 @@ const DetailedProjectPage = () => {
                 {format(new Date(project.updatedAt), "MMM dd, yyyy") || "N/A"}
               </span>
             </div>
+          </div>
+          {/* Project Details */}
+          <div className="mb-6 p-2">
+            <h3 className="text-xl font-semibold mb-2">Project Details</h3>
+            {project.longDescription ? (
+              <MarkdownRenderer content={project.longDescription} />
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No project details available.
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>

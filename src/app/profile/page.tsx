@@ -187,11 +187,12 @@ const Profile = () => {
           )}
         </div>
 
-        <div className="flex flex-col items-start gap-2 p-2">
+        <div className="flex flex-col items-start p-2">
           <h2 className="text-2xl font-bold">
             {userData.firstname} {userData.lastname}
           </h2>
-          <h2 className="text-xs">{Data?.bio}</h2>
+          <h2 className="text-xs">@{Data?.username}</h2>
+          <h2 className="text-sm my-2">{Data?.bio}</h2>
           {Array.isArray(userData.professionTags) &&
           userData.professionTags.length > 0 ? (
             <div className="flex flex-wrap gap-2 mt-2">
@@ -214,7 +215,7 @@ const Profile = () => {
 
       {/* Projects and Articles */}
       {/* ... (rest of your component code) */}
-      <div className="w-full m-2">
+      <div className=" m-2">
         <ToggleButtons activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <div className="flex py-4">
