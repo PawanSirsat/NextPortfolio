@@ -6,13 +6,7 @@ import {
   uploadAndSaveImage,
   uploadImage,
 } from "../user";
-import {
-  createProject,
-  getProjectsByUserId,
-  updateProject,
-  deleteProject,
-  getProjectById,
-} from "../project";
+import { getProjectsByUserId, deleteProject, getProjectById } from "../project";
 import { ProjectFormValues } from "../../../../utils/validations/project";
 import {
   UploadAndSaveImageParams,
@@ -94,22 +88,22 @@ export const useGitHubData = (githubRepo: string | undefined) => {
   });
 };
 
-export const useCreateProject = () => {
-  const queryClient = useQueryClient();
+// export const useCreateProject = () => {
+//   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: ({
-      projectData,
-      userId,
-    }: {
-      projectData: ProjectFormValues;
-      userId: string;
-    }) => createProject(projectData, userId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: ({
+//       projectData,
+//       userId,
+//     }: {
+//       projectData: ProjectFormValues;
+//       userId: string;
+//     }) => createProject(projectData, userId),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ["projects"] });
+//     },
+//   });
+// };
 
 export const useProjectsByUserId = () => {
   return useQuery({
@@ -125,22 +119,22 @@ export const useProjectById = (projectId: string) => {
   });
 };
 
-export const useUpdateProject = () => {
-  const queryClient = useQueryClient();
+// export const useUpdateProject = () => {
+//   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: ({
-      projectId,
-      updates,
-    }: {
-      projectId: string;
-      updates: Partial<ProjectFormValues>;
-    }) => updateProject(projectId, updates),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: ({
+//       projectId,
+//       updates,
+//     }: {
+//       projectId: string;
+//       updates: Partial<ProjectFormValues>;
+//     }) => updateProject(projectId, updates),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ["projects"] });
+//     },
+//   });
+// };
 
 export const useDeleteProject = () => {
   const queryClient = useQueryClient();
