@@ -92,7 +92,7 @@ export const updateProject = async (
         title: updates.title,
         description: updates.description,
         tags: updates.technologies,
-        media: updates.media ? [updates.media] : undefined,
+        media: updates.media || null,
         startDate: updates.startDate ? new Date(updates.startDate) : undefined,
         endDate: updates.endDate ? new Date(updates.endDate) : undefined,
         longDescription: updates.longDescription,
