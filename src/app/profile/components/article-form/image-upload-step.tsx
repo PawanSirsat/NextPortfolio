@@ -12,28 +12,44 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
+import { useUpload } from "@/app/actions/query/queries";
+import { toast } from "sonner";
 
 export function ImageUploadStep() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { control, setValue } = useFormContext<ArticleFormValues>();
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [isUploading, setIsUploading] = useState(false);
+  const uploadImageMutation = useUpload();
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result as string);
-        setValue("image", reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setIsUploading(true);
+      try {
+        const imageUrl = await uploadImageMutation.mutateAsync({
+          filePath: file,
+        });
+        toast.success("Image uploaded successfully!");
+        console.log("Uploaded Image URL:", imageUrl);
+
+        setPreviewUrl(imageUrl);
+        setValue("media", imageUrl);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        // Handle error (e.g., show error message to user)
+      } finally {
+        setIsUploading(false);
+      }
     }
   };
-
   return (
     <div className="space-y-4">
       <FormField
         control={control}
-        name="image"
+        name="media"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Article Image (optional)</FormLabel>

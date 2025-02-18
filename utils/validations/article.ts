@@ -9,6 +9,7 @@ export const articleSchema = z.object({
   tags: z.array(z.string()).min(1, "At least one tag is required"),
   publishDate: z.string().optional(),
   status: z.enum(["Draft", "Published"]),
+  media: z.string().url("Invalid image URL").optional(),
 });
 
 export type ArticleFormValues = z.infer<typeof articleSchema>;
