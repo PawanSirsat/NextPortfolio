@@ -194,8 +194,6 @@ body h1 {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -203,4 +201,11 @@ body h1 {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.image-shadow {
+  box-shadow: 0px 43px 12px rgba(122, 122, 122, 0),
+    0px 28px 11px rgba(122, 122, 122, 0.01),
+    0px 16px 9px rgba(122, 122, 122, 0.05),
+    0px 7px 7px rgba(122, 122, 122, 0.09), 0px 2px 4px rgba(122, 122, 122, 0.1);
 }

@@ -11,6 +11,8 @@ export function ProjectMedia({
   media,
   alt = "Project Image",
 }: ProjectMediaProps) {
+  const imageClassName = "w-full h-64 object-cover rounded-t-lg shadow-inner"; // Added shadow-inner class
+
   if (media) {
     if (media.includes("res.cloudinary.com")) {
       return (
@@ -19,7 +21,7 @@ export function ProjectMedia({
           alt={alt}
           width="1000"
           height="400"
-          className="w-full h-64 object-cover rounded-t-lg"
+          className={imageClassName} // Use the combined class name
         />
       );
     } else {
@@ -29,7 +31,7 @@ export function ProjectMedia({
           alt={alt}
           width={1000}
           height={400}
-          className="w-full h-64 object-cover rounded-t-lg"
+          className={imageClassName} // Use the combined class name
         />
       );
     }
@@ -40,7 +42,7 @@ export function ProjectMedia({
         alt="Project Placeholder"
         width={1000}
         height={400}
-        className="w-full h-64 object-cover rounded-t-lg dark:filter dark:invert"
+        className={`${imageClassName} dark:filter dark:invert`} // Combine with dark styles
       />
     );
   }

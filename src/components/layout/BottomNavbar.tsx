@@ -65,7 +65,7 @@ const BottomNavbar = () => {
       {activeSection && activeSection !== "More" && (
         <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[50%] max-w-[200px] flex items-center justify-between z-50 fade-in">
           {/* Section Name (Centered) */}
-          <div className="flex-1 text-center bg-gradient-to-r from-[#203b57] to-[#412441] text-white px-4 py-3 rounded-full shadow-lg">
+          <div className="flex-1 text-center bg-gradient-to-r from-[#335c87] to-[#6d3b6d] text-white px-4 py-3 rounded-full shadow-lg">
             <span className="text-lg font-bold">{activeSection}</span>
           </div>
 
@@ -75,7 +75,7 @@ const BottomNavbar = () => {
               setActiveSection(null);
               router.back(); // Go one step back
             }}
-            className="ml-2 bg-gradient-to-r from-[#203b57] to-[#412441] text-white p-3 rounded-full shadow-lg"
+            className="ml-2 bg-gradient-to-r from-[#335c87] to-[#6d3b6d] text-white p-3 rounded-full shadow-lg"
           >
             <IoClose size={24} />
           </button>
