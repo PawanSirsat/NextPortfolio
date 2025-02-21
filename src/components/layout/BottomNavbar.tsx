@@ -1,7 +1,6 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoSearch } from "react-icons/io5";
 import { useRouter, usePathname } from "next/navigation";
 
 const BottomNavbar = () => {
@@ -23,11 +22,23 @@ const BottomNavbar = () => {
     router.push(`/${section.toLowerCase()}`);
   };
 
+  const handleSearchClick = () => {
+    router.push("/search"); // Navigate to the search page
+  };
+
   return (
     <>
       {/* Main Navbar */}
       {!activeSection && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center bg-gradient-to-r from-[#203b57] to-[#412441]  text-white px-1 py-3 rounded-full shadow-lg w-[70%] max-w-[400px] z-50">
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center bg-gradient-to-r from-[#203b57] to-[#412441] text-white px-1 py-3 rounded-full shadow-lg w-[80%] max-w-[400px] z-50">
+          <button
+            onClick={handleSearchClick}
+            className="px-4 text-center text-sm sm:text-lg hover:text-gray-300"
+          >
+            <IoSearch size={20} />
+          </button>
+          <div className="h-6 w-px bg-gray-400"></div>
+          {/* Projects Button */}
           <button
             onClick={() => handleNavigation("Projects")}
             className="flex-1 text-center text-sm sm:text-lg hover:text-gray-300"

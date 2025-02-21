@@ -5,7 +5,7 @@ import TrendingProjects from "./components/TrendingProjects";
 export default function Home() {
   return (
     <>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <CategoriesBar />
       <TrendingProjects />
       {/* <LatestArticles /> */}

@@ -20,7 +20,7 @@ const Navbar = async () => {
         <Link href="/">
           <div className="flex items-center gap-2 bg-black/40 rounded-lg">
             <h1
-              className={`heading bg-gradient-to-r from-[#7b68ee] to-[#ff69b4] text-transparent bg-clip-text  py-1 px-3 rounded-md backdrop-blur-lg ${exo2.className} animate-pulse-subtle`}
+              className={`heading bg-gradient-to-r from-[#378ce6] to-[#bd60bd] text-transparent bg-clip-text  py-1 px-3 rounded-md backdrop-blur-lg ${exo2.className} animate-pulse-subtle`}
             >
               Almanac
             </h1>

@@ -12,7 +12,7 @@ const Layout = ({ children }: Props) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex-1 py-8 px-6 sm:px-12 pt-24">{children}</div>
+      <div className="flex-1 py-8 px-6 sm:px-12 pt-16">{children}</div>
       <Footer />
       {!isProfilePage && <BottomNavbar />}{" "}
       {/* Conditionally render the bottom navbar */}

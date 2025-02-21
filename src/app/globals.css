@@ -193,3 +193,14 @@ body h1 {
 .fade-in {
   animation: fadeIn 0.3s ease-in-out;
 }
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
