@@ -16,7 +16,7 @@ export default function CategoriesBar() {
 
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const handleCategoryClick = (categoryName) => {
+  const handleCategoryClick = (categoryName: string) => {
     setActiveCategory(categoryName);
   };
 
