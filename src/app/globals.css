@@ -110,3 +110,73 @@ body h1 {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.heading {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+/* Space background for navbar */
+.space-bg {
+  background: transparent; /* Ensure transparency */
+  overflow: hidden;
+}
+
+/* Moving stars effect */
+.space-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='10' cy='10' r='1' fill='white'/%3E%3Ccircle cx='40' cy='40' r='0.5' fill='white'/%3E%3Ccircle cx='80' cy='20' r='0.8' fill='white'/%3E%3Ccircle cx='60' cy='80' r='1.2' fill='white'/%3E%3C/svg%3E");
+  animation: move-stars 20s linear infinite;
+  opacity: 0.4; /* Slightly increased for visibility */
+  z-index: 0;
+}
+
+/* Animations */
+@keyframes move-stars {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Animation utilities */
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Ensure content stays above the starfield */
+.space-bg > * {
+  position: relative;
+  z-index: 1;
+}
