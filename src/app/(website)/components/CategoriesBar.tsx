@@ -24,6 +24,28 @@ export default function CategoriesBar() {
 
   const handleCategoryClick = (categoryName: string) => {
     setActiveCategory(categoryName);
+
+    const startPosition = window.scrollY;
+    const targetPosition = 0;
+    const distance = targetPosition - startPosition;
+    const duration = 300;
+    let startTime: number | null = null;
+
+    const animateScroll = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsedTime = timestamp - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
+      1;
+      const easedProgress = progress;
+
+      window.scrollTo(0, startPosition + distance * easedProgress);
+
+      if (elapsedTime < duration) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
   };
 
   const getShadowClass = (color: keyof ShadowClasses): string => {
@@ -36,7 +58,7 @@ export default function CategoriesBar() {
     return shadowClasses[color] || "";
   };
 
-  // Adjust ranges for complete disappearance
+  // Adjust ranges for smooth disappearance
   const iconScale = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
     ease: easeInOut,
   });
@@ -49,10 +71,10 @@ export default function CategoriesBar() {
     ["48px", "0px"],
     { ease: easeInOut }
   );
-  const iconSize = useTransform(scrollYProgress, [0, 0.2], ["1.5rem", "0rem"], {
+  const iconPadding = useTransform(scrollYProgress, [0, 0.2], ["12px", "0px"], {
     ease: easeInOut,
   });
-  const iconPadding = useTransform(scrollYProgress, [0, 0.2], ["12px", "0px"], {
+  const iconContainerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
     ease: easeInOut,
   });
 
@@ -74,10 +96,9 @@ export default function CategoriesBar() {
                 {/* Icon Container */}
                 <motion.div
                   style={{
-                    scale: iconScale,
-                    opacity: iconOpacity,
                     height: iconContainerHeight,
                     padding: iconPadding,
+                    opacity: iconContainerOpacity,
                   }}
                   className={`flex items-center justify-center rounded-xl transition-all duration-300 overflow-hidden ${
                     activeCategory === category.name
@@ -91,8 +112,8 @@ export default function CategoriesBar() {
                   <motion.span
                     className={`${category.color} transition-colors duration-300`}
                     style={{
-                      width: iconSize,
-                      height: iconSize,
+                      scale: iconScale,
+                      opacity: iconOpacity,
                     }}
                   >
                     {category.icon}
