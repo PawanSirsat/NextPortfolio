@@ -35,7 +35,6 @@ export default function CategoriesBar() {
       if (!startTime) startTime = timestamp;
       const elapsedTime = timestamp - startTime;
       const progress = Math.min(elapsedTime / duration, 1);
-      1;
       const easedProgress = progress;
 
       window.scrollTo(0, startPosition + distance * easedProgress);
@@ -58,7 +57,7 @@ export default function CategoriesBar() {
     return shadowClasses[color] || "";
   };
 
-  // Adjust ranges for smooth disappearance
+  // Animation for icons
   const iconScale = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
     ease: easeInOut,
   });
@@ -78,11 +77,34 @@ export default function CategoriesBar() {
     ease: easeInOut,
   });
 
+  // Border opacity and border radius animation
+  const borderOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1], {
+    ease: easeInOut,
+  });
+  const borderRadius = useTransform(
+    scrollYProgress,
+    [0, 0.2],
+    ["12px", "24px"],
+    {
+      ease: easeInOut,
+    }
+  );
+
   return (
     <>
       <div className="py-4 lg:px-24 fixed top-12 left-0 right-0 z-50 mx-1">
-        <div className="w-full max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-black to-black p-2">
-          <div className="flex justify-between items-center w-full gap-4">
+        <motion.div
+          className="w-full max-w-2xl mx-auto p-2 relative"
+          style={{
+            borderRadius: borderRadius,
+            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            border: useTransform(
+              borderOpacity,
+              (value) => `3px solid rgba(100, 100, 100, ${value})`
+            ),
+          }}
+        >
+          <div className="flex justify-between items-center w-full gap-4 relative z-10">
             {categories.map((category) => (
               <button
                 key={category.name}
@@ -93,7 +115,6 @@ export default function CategoriesBar() {
                 } w-24 lg:w-auto`}
                 onClick={() => handleCategoryClick(category.name)}
               >
-                {/* Icon Container */}
                 <motion.div
                   style={{
                     height: iconContainerHeight,
@@ -108,7 +129,6 @@ export default function CategoriesBar() {
                       : ""
                   }`}
                 >
-                  {/* Icon */}
                   <motion.span
                     className={`${category.color} transition-colors duration-300`}
                     style={{
@@ -119,7 +139,6 @@ export default function CategoriesBar() {
                     {category.icon}
                   </motion.span>
                 </motion.div>
-                {/* Category Name */}
                 <span
                   className={`font-medium text-xs sm:text-base md:text-lg text-center transition-colors duration-300 ${
                     activeCategory === category.name
@@ -132,7 +151,7 @@ export default function CategoriesBar() {
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
       <style jsx global>{`
         .active-icon-shadow-violet {
