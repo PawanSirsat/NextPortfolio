@@ -209,3 +209,26 @@ body h1 {
     0px 16px 9px rgba(122, 122, 122, 0.05),
     0px 7px 7px rgba(122, 122, 122, 0.09), 0px 2px 4px rgba(122, 122, 122, 0.1);
 }
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slideUp {
+  animation: slideUp 0.3s ease-in-out;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

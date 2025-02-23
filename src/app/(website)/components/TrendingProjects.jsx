@@ -7,8 +7,6 @@ import { useAllProject } from "@/app/actions/query/queries";
 const TrendingProjects = () => {
   const { data: projects, isLoading, isError } = useAllProject();
 
-  console.log(projects);
-
   return (
     <div className="flex-1 rounded-lg">
       <h2 className="mb-6 text-xl font-bold text-left">Trending Projects</h2>

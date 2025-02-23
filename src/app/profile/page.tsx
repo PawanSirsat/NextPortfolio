@@ -124,7 +124,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex flex-col items-start text-white">
+    <div className="flex flex-col text-white">
       {/* Notification Bar for Incomplete Profile */}
       {isProfileIncomplete && showAlert && (
         <Alert className="mb-4 bg-yellow-100 text-yellow-800 border-yellow-300 relative">
@@ -187,7 +187,7 @@ const Profile = () => {
           )}
         </div>
 
-        <div className="flex flex-col items-start p-2">
+        <div className="flex flex-col p-2">
           <h2 className="text-2xl font-bold">
             {userData.firstname} {userData.lastname}
           </h2>
