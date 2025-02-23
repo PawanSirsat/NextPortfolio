@@ -36,11 +36,11 @@ export default function CategoriesBar() {
     return shadowClasses[color] || "";
   };
 
-  // Shortened ranges for faster transitions
+  // Adjust ranges for complete disappearance
   const iconScale = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
     ease: easeInOut,
   });
-  const iconOpacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0], {
+  const iconOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
     ease: easeInOut,
   });
   const iconContainerHeight = useTransform(
