@@ -4,6 +4,13 @@ import { useState } from "react";
 import { Wand2, Laptop, Briefcase, Brush } from "lucide-react";
 import { motion, useScroll, useTransform, easeInOut } from "framer-motion";
 
+type ShadowClasses = {
+  "text-violet-400": string;
+  "text-blue-400": string;
+  "text-yellow-400": string;
+  "text-red-400": string;
+};
+
 export default function CategoriesBar() {
   const categories = [
     { name: "For you", icon: <Wand2 />, color: "text-violet-400" },
@@ -19,8 +26,8 @@ export default function CategoriesBar() {
     setActiveCategory(categoryName);
   };
 
-  const getShadowClass = (color: string) => {
-    const shadowClasses = {
+  const getShadowClass = (color: keyof ShadowClasses): string => {
+    const shadowClasses: ShadowClasses = {
       "text-violet-400": "active-icon-shadow-violet",
       "text-blue-400": "active-icon-shadow-blue",
       "text-yellow-400": "active-icon-shadow-yellow",
@@ -29,7 +36,6 @@ export default function CategoriesBar() {
     return shadowClasses[color] || "";
   };
 
-  // Synchronized animations over 30% scroll
   const iconScale = useTransform(scrollYProgress, [0, 0.3], [1, 0], {
     ease: easeInOut,
   });
@@ -50,12 +56,12 @@ export default function CategoriesBar() {
     [0, 0.45],
     ["12px", "0px"],
     { ease: easeInOut }
-  ); // Extended range
+  );
 
   return (
     <>
-      <div className="py-4 lg:px-24 fixed top-12 left-0 right-0 z-50">
-        <div className="w-full max-w-2xl mx-auto rounded-xl bg-gray-900 p-2">
+      <div className="py-4 lg:px-24 fixed top-12 left-0 right-0 z-50 mx-1">
+        <div className="w-full max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-gray-900 to-black p-2">
           <div className="flex justify-between items-center w-full gap-4">
             {categories.map((category) => (
               <button
@@ -77,7 +83,7 @@ export default function CategoriesBar() {
                   className={`flex items-center justify-center rounded-xl transition-all duration-300 overflow-hidden ${
                     activeCategory === category.name
                       ? `${getShadowClass(
-                          category.color
+                          category.color as keyof ShadowClasses
                         )} shadow-lg bg-gray-800/50`
                       : ""
                   }`}
@@ -85,7 +91,7 @@ export default function CategoriesBar() {
                   <span
                     className={`${category.color} transition-colors duration-300`}
                     style={{
-                      fontSize: iconSize,
+                      fontSize: iconSize.get(),
                     }}
                   >
                     {category.icon}
@@ -110,7 +116,7 @@ export default function CategoriesBar() {
           box-shadow: 0 0 26px 5px rgba(139, 92, 246, 0.5) !important;
         }
         .active-icon-shadow-blue {
-          box-shadow: 0 0 26px 5px rgba(96, 165, 250, 0.5) !important;
+          box-shadow: 0 0 26px 5px rgba(96, 165, 250, 0.5) !-important;
         }
         .active-icon-shadow-yellow {
           box-shadow: 0 0 26px 5px rgba(250, 204, 21, 0.5) !important;
