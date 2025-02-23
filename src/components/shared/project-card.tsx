@@ -92,7 +92,7 @@ const ProjectCard: React.FC<any> = ({
     <Card className="w-full flex flex-col overflow-hidden">
       <CardHeader className="p-0 relative">
         <Link href={`/profile/project/${id}`}>
-          <div className=" shadow-[0px_43px_12px_rgba(122,122,122,0),0px_28px_11px_rgba(122,122,122,0.01),0px_16px_9px_rgba(122,122,122,0.05),0px_7px_7px_rgba(122,122,122,0.09),0px_2px_4px_rgba(122,122,122,0.1)]">
+          <div className=" ">
             {" "}
             <ProjectMedia media={media} alt={title} />
           </div>

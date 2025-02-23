@@ -232,3 +232,7 @@ body h1 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.inner-shadow {
+  box-shadow: inset 0 0 10px #f8a100;
+}

@@ -94,7 +94,7 @@ export default function CategoriesBar() {
   const borderRadius = useTransform(
     scrollYProgress,
     [0, 0.02],
-    ["12px", "24px"],
+    ["12px", "15px"],
     {
       ease: easeInOut,
     }

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import placeholder from "@assets/images/project-placeholder.svg";
 import { CldImage } from "next-cloudinary";
@@ -11,7 +12,8 @@ export function ProjectMedia({
   media,
   alt = "Project Image",
 }: ProjectMediaProps) {
-  const imageClassName = "w-full h-64 object-cover rounded-t-lg shadow-inner"; // Added shadow-inner class
+  const imageClassName =
+    "w-full h-64 object-cover rounded-t-lg inner-shadow shadow-inner";
 
   if (media) {
     if (media.includes("res.cloudinary.com")) {
@@ -21,7 +23,7 @@ export function ProjectMedia({
           alt={alt}
           width="1000"
           height="400"
-          className={imageClassName} // Use the combined class name
+          className={imageClassName}
         />
       );
     } else {

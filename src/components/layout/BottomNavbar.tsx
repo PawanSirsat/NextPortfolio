@@ -98,7 +98,7 @@ const BottomNavbar = () => {
               : "translate-y-full opacity-0"
           }`}
         >
-          <div className="flex-1 text-center bg-gradient-to-r from-[#0f345c] to-[#640d64] text-white px-4 py-3 rounded-full shadow-lg">
+          <div className="flex-1 text-center bg-gray-800 opacity-90 bg-blend-color-burn text-white px-4 py-3 rounded-full shadow-lg">
             <button className="text-sm sm:text-lg hover:text-gray-300">
               {activeSection}
             </button>
@@ -108,7 +108,7 @@ const BottomNavbar = () => {
               setActiveSection(null);
               router.back();
             }}
-            className="ml-2 bg-gradient-to-r from-[#0f345c] to-[#640d64] text-white p-3 rounded-full shadow-lg"
+            className="ml-2 bg-gray-800 opacity-90 text-white p-3 rounded-full shadow-lg"
           >
             <IoClose size={24} />
           </button>
