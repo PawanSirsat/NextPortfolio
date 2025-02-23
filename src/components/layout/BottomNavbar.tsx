@@ -22,13 +22,23 @@ const BottomNavbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (!isVisible && scrollPosition > 50) {
+      const totalHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const distanceFromBottom = totalHeight - (scrollPosition + windowHeight);
+
+      // Show navbar when scrolling down past 50px
+      if (!isVisible && scrollPosition > 50 && distanceFromBottom > 200) {
         setIsVisible(true);
       }
+      // Hide navbar when within 200px from bottom
+      if (isVisible && distanceFromBottom < 200) {
+        setIsVisible(false);
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isVisible]); // Added isVisible as dependency to track state changes
 
   const handleNavigation = (section: string) => {
     router.push(`/${section.toLowerCase()}`);
