@@ -36,27 +36,25 @@ export default function CategoriesBar() {
     return shadowClasses[color] || "";
   };
 
-  const iconScale = useTransform(scrollYProgress, [0, 0.3], [1, 0], {
+  // Shortened ranges for faster transitions
+  const iconScale = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
     ease: easeInOut,
   });
-  const iconOpacity = useTransform(scrollYProgress, [0, 0.25, 0.3], [1, 1, 0], {
+  const iconOpacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0], {
     ease: easeInOut,
   });
   const iconContainerHeight = useTransform(
     scrollYProgress,
-    [0, 0.3],
-    ["auto", "0px"],
+    [0, 0.2],
+    ["48px", "0px"],
     { ease: easeInOut }
   );
-  const iconSize = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"], {
+  const iconSize = useTransform(scrollYProgress, [0, 0.2], ["1.5rem", "0rem"], {
     ease: easeInOut,
   });
-  const iconPadding = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    ["12px", "0px"],
-    { ease: easeInOut }
-  );
+  const iconPadding = useTransform(scrollYProgress, [0, 0.2], ["12px", "0px"], {
+    ease: easeInOut,
+  });
 
   return (
     <>
@@ -91,7 +89,8 @@ export default function CategoriesBar() {
                   <span
                     className={`${category.color} transition-colors duration-300`}
                     style={{
-                      fontSize: iconSize.get(),
+                      width: iconSize.get(),
+                      height: iconSize.get(),
                     }}
                   >
                     {category.icon}
@@ -116,7 +115,7 @@ export default function CategoriesBar() {
           box-shadow: 0 0 26px 5px rgba(139, 92, 246, 0.5) !important;
         }
         .active-icon-shadow-blue {
-          box-shadow: 0 0 26px 5px rgba(96, 165, 250, 0.5) !-important;
+          box-shadow: 0 0 26px 5px rgba(96, 165, 250, 0.5) !important;
         }
         .active-icon-shadow-yellow {
           box-shadow: 0 0 26px 5px rgba(250, 204, 21, 0.5) !important;
