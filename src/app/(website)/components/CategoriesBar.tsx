@@ -59,7 +59,7 @@ export default function CategoriesBar() {
   return (
     <>
       <div className="py-4 lg:px-24 fixed top-12 left-0 right-0 z-50 mx-1">
-        <div className="w-full max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-gray-900 to-black p-2">
+        <div className="w-full max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-black to-black p-2">
           <div className="flex justify-between items-center w-full gap-4">
             {categories.map((category) => (
               <button
@@ -71,6 +71,7 @@ export default function CategoriesBar() {
                 } w-24 lg:w-auto`}
                 onClick={() => handleCategoryClick(category.name)}
               >
+                {/* Icon Container */}
                 <motion.div
                   style={{
                     scale: iconScale,
@@ -86,16 +87,18 @@ export default function CategoriesBar() {
                       : ""
                   }`}
                 >
-                  <span
+                  {/* Icon */}
+                  <motion.span
                     className={`${category.color} transition-colors duration-300`}
                     style={{
-                      width: iconSize.get(),
-                      height: iconSize.get(),
+                      width: iconSize,
+                      height: iconSize,
                     }}
                   >
                     {category.icon}
-                  </span>
+                  </motion.span>
                 </motion.div>
+                {/* Category Name */}
                 <span
                   className={`font-medium text-xs sm:text-base md:text-lg text-center transition-colors duration-300 ${
                     activeCategory === category.name
