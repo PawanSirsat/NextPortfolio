@@ -13,7 +13,7 @@ const Navbar = async () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 backdrop-blur-md bg-transparent text-white px-4 lg:px-8 py-2 flex items-center justify-between font-semibold z-50 border-b border-dashed border-white/20 space-bg">
+      <div className=" top-0 left-0 right-0 backdrop-blur-md bg-transparent text-white px-4 lg:px-8 py-2 flex items-center justify-between font-semibold z-50 border-b border-dashed border-white/20 space-bg">
         {/* Logo and Menu */}
         <div className="relative flex items-center gap-x-3 z-10">
           <Link href="/">

@@ -58,33 +58,53 @@ export default function CategoriesBar() {
   };
 
   // Animation for icons
-  const iconScale = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
+  const iconScale = useTransform(scrollYProgress, [0, 0.02], [1, 0], {
     ease: easeInOut,
   });
-  const iconOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
+  const iconOpacity = useTransform(scrollYProgress, [0, 0.02], [1, 0], {
     ease: easeInOut,
   });
   const iconContainerHeight = useTransform(
     scrollYProgress,
-    [0, 0.2],
+    [0, 0.02],
     ["48px", "0px"],
     { ease: easeInOut }
   );
-  const iconPadding = useTransform(scrollYProgress, [0, 0.2], ["12px", "0px"], {
-    ease: easeInOut,
-  });
-  const iconContainerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0], {
-    ease: easeInOut,
-  });
+  const iconPadding = useTransform(
+    scrollYProgress,
+    [0, 0.02],
+    ["12px", "0px"],
+    {
+      ease: easeInOut,
+    }
+  );
+  const iconContainerOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.02],
+    [1, 0],
+    {
+      ease: easeInOut,
+    }
+  );
 
   // Border opacity and border radius animation
-  const borderOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1], {
+  const borderOpacity = useTransform(scrollYProgress, [0, 0.02], [0, 1], {
     ease: easeInOut,
   });
   const borderRadius = useTransform(
     scrollYProgress,
-    [0, 0.2],
+    [0, 0.02],
     ["12px", "24px"],
+    {
+      ease: easeInOut,
+    }
+  );
+
+  // Dynamic top position for navbar
+  const navbarTop = useTransform(
+    scrollYProgress,
+    [0, 0.02], // Adjust this range for sensitivity
+    ["3rem", "0rem"], // Start at top-12 (3rem), move to top-0
     {
       ease: easeInOut,
     }
@@ -92,16 +112,22 @@ export default function CategoriesBar() {
 
   return (
     <>
-      <div className="py-4 lg:px-24 fixed top-12 left-0 right-0 z-50 mx-1">
+      <motion.div
+        className="py-4 lg:px-24 fixed left-0 right-0 z-50 mx-1"
+        style={{
+          top: navbarTop, // Dynamic top position
+        }}
+      >
         <motion.div
           className="w-full max-w-2xl mx-auto p-2 relative"
           style={{
             borderRadius: borderRadius,
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            backgroundColor: "rgba(0, 0, 0, 0.6)", // Semi-transparent background
+            backdropFilter: "blur(10px)", // Blur effect
             border: useTransform(
               borderOpacity,
-              (value) => `3px solid rgba(100, 100, 100, ${value})`
-            ),
+              (value) => `2px solid rgba(100, 100, 100, ${value})`
+            ), // Dark gray border with dynamic opacity
           }}
         >
           <div className="flex justify-between items-center w-full gap-4 relative z-10">
@@ -152,7 +178,7 @@ export default function CategoriesBar() {
             ))}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
       <style jsx global>{`
         .active-icon-shadow-violet {
           box-shadow: 0 0 26px 5px rgba(139, 92, 246, 0.5) !important;
