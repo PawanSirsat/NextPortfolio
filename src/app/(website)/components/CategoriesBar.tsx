@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Wand2, Laptop, Briefcase, Brush } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, easeInOut } from "framer-motion";
 
 export default function CategoriesBar() {
   const categories = [
@@ -13,14 +13,14 @@ export default function CategoriesBar() {
   ];
 
   const [activeCategory, setActiveCategory] = useState("For you");
+  const { scrollYProgress } = useScroll();
 
   const handleCategoryClick = (categoryName: string) => {
     setActiveCategory(categoryName);
   };
 
   const getShadowClass = (color: string) => {
-    const shadowClasses: { [key: string]: string } = {
-      // Added index signature
+    const shadowClasses = {
       "text-violet-400": "active-icon-shadow-violet",
       "text-blue-400": "active-icon-shadow-blue",
       "text-yellow-400": "active-icon-shadow-yellow",
@@ -29,25 +29,52 @@ export default function CategoriesBar() {
     return shadowClasses[color] || "";
   };
 
+  // Synchronized animations over 30% scroll
+  const iconScale = useTransform(scrollYProgress, [0, 0.3], [1, 0], {
+    ease: easeInOut,
+  });
+  const iconOpacity = useTransform(scrollYProgress, [0, 0.25, 0.3], [1, 1, 0], {
+    ease: easeInOut,
+  });
+  const iconContainerHeight = useTransform(
+    scrollYProgress,
+    [0, 0.3],
+    ["auto", "0px"],
+    { ease: easeInOut }
+  );
+  const iconSize = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"], {
+    ease: easeInOut,
+  });
+  const iconPadding = useTransform(
+    scrollYProgress,
+    [0, 0.45],
+    ["12px", "0px"],
+    { ease: easeInOut }
+  ); // Extended range
+
   return (
     <>
-      <div className="py-4 lg:px-24">
+      <div className="py-4 lg:px-24 fixed top-12 left-0 right-0 z-50">
         <div className="w-full max-w-2xl mx-auto rounded-xl bg-gray-900 p-2">
           <div className="flex justify-between items-center w-full gap-4">
             {categories.map((category) => (
-              <motion.button
+              <button
                 key={category.name}
                 className={`flex flex-col items-center px-3 py-2 rounded-xl group transition-all duration-300 hover:bg-gray-800/50 ${
                   activeCategory === category.name
-                    ? "shadow-lg"
+                    ? "shadow-lg bg-gray-800/50"
                     : "bg-transparent"
                 } w-24 lg:w-auto`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => handleCategoryClick(category.name)}
               >
-                <div
-                  className={`flex items-center justify-center md:p-1 p-3 rounded-xl transition-all duration-300 ${
+                <motion.div
+                  style={{
+                    scale: iconScale,
+                    opacity: iconOpacity,
+                    height: iconContainerHeight,
+                    padding: iconPadding,
+                  }}
+                  className={`flex items-center justify-center rounded-xl transition-all duration-300 overflow-hidden ${
                     activeCategory === category.name
                       ? `${getShadowClass(
                           category.color
@@ -56,13 +83,16 @@ export default function CategoriesBar() {
                   }`}
                 >
                   <span
-                    className={`${category.color} w-6 h-6 sm:w-7 sm:h-7 transition-colors duration-300 `}
+                    className={`${category.color} transition-colors duration-300`}
+                    style={{
+                      fontSize: iconSize,
+                    }}
                   >
                     {category.icon}
                   </span>
-                </div>
+                </motion.div>
                 <span
-                  className={`font-medium text-xs sm:text-base md:text-lg pt-2 text-center transition-colors duration-300 ${
+                  className={`font-medium text-xs sm:text-base md:text-lg text-center transition-colors duration-300 ${
                     activeCategory === category.name
                       ? category.color
                       : "text-gray-200"
@@ -70,7 +100,7 @@ export default function CategoriesBar() {
                 >
                   {category.name}
                 </span>
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
