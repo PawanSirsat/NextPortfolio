@@ -52,7 +52,7 @@ const Layout = ({ children }: Props) => {
     <motion.div
       className="flex flex-col min-h-screen "
       animate={{
-        backgroundImage: `radial-gradient(ellipse 98% 35% at ${activeGradient.positionX} ${activeGradient.positionY}, rgba(${activeGradient.color}, 0.2), transparent 60%), linear-gradient(to bottom, rgba(${activeGradient.color}, 0.1), #111827)`,
+        backgroundImage: `radial-gradient(ellipse 68% 15% at ${activeGradient.positionX} ${activeGradient.positionY}, rgba(${activeGradient.color}, 0.2), transparent 60%), linear-gradient(to bottom, rgba(${activeGradient.color}, 0.1), #111827)`,
       }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       style={{
