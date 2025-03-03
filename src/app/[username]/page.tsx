@@ -2,28 +2,7 @@ import { client } from "@/lib/prisma";
 import { Metadata, NextPage, ResolvingMetadata } from "next";
 import { ProfileContent } from "./components/ProfileContent";
 import { Params } from "next/dist/server/request/params";
-
-// Async page component with NextPage typing
-const ProfilePage: NextPage<{ params: Params }> = async ({ params }) => {
-  const { username } = params as { username: string };
-  const initialProfileUser = await fetchUserByUsernameServer(username);
-
-  return <ProfileContent username={username} />;
-};
-
-export default ProfilePage;
-
-async function fetchUserByUsernameServer(username: string) {
-  try {
-    const user = await client.user.findUnique({
-      where: { username },
-    });
-    return user;
-  } catch (error) {
-    console.error("Error fetching user by username:", error);
-    return null;
-  }
-}
+import { fetchUserByUsernameServer } from "../actions/user";
 
 // Dynamic metadata generation
 export async function generateMetadata(
@@ -89,3 +68,13 @@ export async function generateMetadata(
     },
   };
 }
+
+// Async page component with NextPage typing
+const ProfilePage: NextPage<{ params: Params }> = async ({ params }) => {
+  const { username } = params as { username: string };
+  const initialProfileUser = await fetchUserByUsernameServer(username);
+
+  return <ProfileContent username={username} />;
+};
+
+export default ProfilePage;

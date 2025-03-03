@@ -237,3 +237,15 @@ export const uploadImage = async ({
     throw error;
   }
 };
+
+export const fetchUserByUsernameServer = async (username: string) => {
+  try {
+    const user = await client.user.findUnique({
+      where: { username },
+    });
+    return user;
+  } catch (error) {
+    console.error("Error fetching user by username:", error);
+    return null;
+  }
+};
