@@ -1,7 +1,12 @@
-// app/[username]/page.tsx
 import { client } from "@/lib/prisma";
 import { Metadata } from "next";
 import { ProfileContent } from "./components/ProfileContent";
+import { NextPage } from "next";
+
+// Define the params type for the dynamic route
+type ProfilePageProps = {
+  params: { username: string };
+};
 
 async function fetchUserByUsernameServer(username: string) {
   try {
@@ -15,11 +20,8 @@ async function fetchUserByUsernameServer(username: string) {
   }
 }
 
-export default async function ProfilePage({
-  params,
-}: {
-  params: { username: string };
-}) {
+// Use NextPage type for the page component
+const ProfilePage: NextPage<ProfilePageProps> = async ({ params }) => {
   const { username } = params; // Destructuring works fine in async function
   const initialProfileUser = await fetchUserByUsernameServer(username);
 
@@ -29,13 +31,13 @@ export default async function ProfilePage({
       initialProfileUser={initialProfileUser}
     />
   );
-}
+};
+
+export default ProfilePage;
 
 export async function generateMetadata({
   params,
-}: {
-  params: { username: string };
-}): Promise<Metadata> {
+}: ProfilePageProps): Promise<Metadata> {
   const { username } = params;
   const profileUser = await fetchUserByUsernameServer(username);
 
