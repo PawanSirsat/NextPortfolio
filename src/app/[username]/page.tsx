@@ -9,70 +9,63 @@ interface ProfileParams {
   };
 }
 
-// // Dynamic metadata generation
-// export async function generateMetadata(
-//   { params }: ProfileParams,
-//   parent: ResolvingMetadata
-// ): Promise<Metadata> {
-//   const { username } = await params; // Await params properly
-//   const profileUser = await fetchUserByUsernameServer(username);
+// Dynamic metadata generation
+export async function generateMetadata({ params }: any) {
+  const { username } = await params;
 
-//   const metadataBase = new URL("https://yourwebsite.com");
-//   const previousImages = (await parent).openGraph?.images || [];
+  const profileUser = await fetchUserByUsernameServer(username);
 
-//   if (!profileUser) {
-//     return {
-//       title: "User Not Found",
-//       description: "This user profile could not be found.",
-//       metadataBase,
-//       openGraph: {
-//         title: "User Not Found",
-//         description: "This user profile could not be found.",
-//         url: `/not-found`,
-//         images: previousImages,
-//       },
-//     };
-//   }
+  const metadataBase = new URL("https://yourwebsite.com");
 
-//   const profileTitle = `${profileUser.username}’s Profile`;
-//   const profileDescription =
-//     profileUser.bio || "View this user’s profile on Almanac.";
+  if (!profileUser) {
+    return {
+      title: "User Not Found",
+      description: "This user profile could not be found.",
+      metadataBase,
+      openGraph: {
+        title: "User Not Found",
+        description: "This user profile could not be found.",
+        url: `/not-found`,
+      },
+    };
+  }
 
-//   return {
-//     title: profileTitle,
-//     description: profileDescription,
-//     metadataBase,
-//     alternates: {
-//       canonical: `/${profileUser.username}`,
-//     },
-//     openGraph: {
-//       title: profileTitle,
-//       description: profileDescription,
-//       url: `/${profileUser.username}`,
-//       type: "profile",
-//       images: [
-//         {
-//           url: profileUser.profilePicture || "/default-profile-image.jpg",
-//           height: 600,
-//           alt: `${profileUser.username}’s Profile Picture`,
-//         },
-//         ...previousImages,
-//       ],
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title: profileTitle,
-//       description: profileDescription,
-//       images: [profileUser.profilePicture || "/default-profile-image.jpg"],
-//     },
-//   };
-// }
+  const profileTitle = `${profileUser.username}’s Profile`;
+  const profileDescription =
+    profileUser.bio || "View this user’s profile on Almanac.";
+
+  return {
+    title: profileTitle,
+    description: profileDescription,
+    metadataBase,
+    alternates: {
+      canonical: `/${profileUser.username}`,
+    },
+    openGraph: {
+      title: profileTitle,
+      description: profileDescription,
+      url: `/${profileUser.username}`,
+      type: "profile",
+      images: [
+        {
+          url: profileUser.profilePicture || "/default-profile-image.jpg",
+          height: 600,
+          alt: `${profileUser.username}’s Profile Picture`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: profileTitle,
+      description: profileDescription,
+      images: [profileUser.profilePicture || "/default-profile-image.jpg"],
+    },
+  };
+}
 
 // Server Component
-const ProfilePage = async ({ params }: ProfileParams) => {
-  const { username } = await params; // Await params properly
-  console.log("username ", username);
-
+const ProfilePage = async ({ params }: any) => {
+  const { username } = params;
   return <ProfileContent username={username} />;
 };
 
