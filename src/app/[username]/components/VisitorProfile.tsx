@@ -1,4 +1,13 @@
 export const VisitorProfile = ({ profileUser }: { profileUser: any }) => {
+  // Early return if no profileUser
+  if (!profileUser) {
+    return (
+      <div className="bg-[#1a1a1a] text-gray-200 p-4">
+        <p>User not found</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#1a1a1a] text-gray-200 p-4">
       <div className="flex items-center gap-5 mb-10 flex-wrap">

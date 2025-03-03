@@ -13,7 +13,7 @@ import { OwnerProfile } from "./OwnerProfile";
 import { VisitorProfile } from "./VisitorProfile";
 
 interface ProfileContentProps {
-  username: any;
+  username: string;
 }
 
 export const ProfileContent = ({ username }: ProfileContentProps) => {
@@ -32,19 +32,10 @@ export const ProfileContent = ({ username }: ProfileContentProps) => {
 
   // Memoize currentUserData.user with a stable dependency
   const memoizedCurrentUser = useMemo(() => {
-    console.log("Memoizing currentUserData:", currentUserData?.user);
     return currentUserData?.user;
   }, [currentUserData?.user?.clerkUserId]); // Only change if clerkUserId changes
 
   if (currentUserLoading || profileLoading) {
-    return (
-      <div className="flex justify-center items-top h-screen">
-        <Spinner color="#292828" />
-      </div>
-    );
-  }
-
-  if (currentUserError || profileError || !profileUser) {
     return (
       <div className="bg-[#1a1a1a] text-gray-200 animate-pulse p-4">
         <Skeleton
@@ -86,7 +77,9 @@ export const ProfileContent = ({ username }: ProfileContentProps) => {
   }
 
   const isOwner =
-    currentUserData?.user?.clerkUserId === profileUser.clerkUserId;
+    currentUserData?.user?.clerkUserId === profileUser?.clerkUserId;
+
+  console.log(isOwner);
 
   return isOwner ? (
     <OwnerProfile userData={memoizedCurrentUser} />
