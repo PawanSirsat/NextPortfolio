@@ -1,23 +1,17 @@
 import { client } from "@/lib/prisma";
-import { Metadata } from "next";
+import { Metadata, NextPage } from "next";
 import { ProfileContent } from "./components/ProfileContent";
+import { Params } from "next/dist/server/request/params";
 
-// Define the params type explicitly for the dynamic route
-interface ProfilePageParams {
-  username: string;
-}
-
-// Use the correct type for the component
-export default async function ProfilePage({
-  params,
-}: {
-  params: ProfilePageParams;
-}) {
-  const { username } = params;
+// Async page component with explicit NextPage typing
+const ProfilePage: NextPage<{ params: Params }> = async ({ params }) => {
+  const { username } = params as { username: string }; // Type assertion for safety
   const initialProfileUser = await fetchUserByUsernameServer(username);
 
   return <ProfileContent username={username} />;
-}
+};
+
+export default ProfilePage;
 
 async function fetchUserByUsernameServer(username: string) {
   try {
@@ -34,9 +28,9 @@ async function fetchUserByUsernameServer(username: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: ProfilePageParams;
+  params: Params;
 }): Promise<Metadata> {
-  const { username } = params;
+  const { username } = params as { username: string }; // Type assertion for safety
   const profileUser = await fetchUserByUsernameServer(username);
 
   if (!profileUser) {
