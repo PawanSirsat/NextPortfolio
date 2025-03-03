@@ -14,13 +14,9 @@ import { VisitorProfile } from "./VisitorProfile";
 
 interface ProfileContentProps {
   username: string;
-  initialProfileUser: any;
 }
 
-export const ProfileContent = ({
-  username,
-  initialProfileUser,
-}: ProfileContentProps) => {
+export const ProfileContent = ({ username }: ProfileContentProps) => {
   const {
     data: currentUserData,
     isLoading: currentUserLoading,
@@ -32,7 +28,7 @@ export const ProfileContent = ({
     error: profileError,
   } = fetchUserByUsername(username);
 
-  const profileUser = profileUserData || initialProfileUser;
+  const profileUser = profileUserData || null;
 
   // Memoize currentUserData.user with a stable dependency
   const memoizedCurrentUser = useMemo(() => {

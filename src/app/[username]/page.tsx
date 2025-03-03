@@ -15,12 +15,7 @@ const ProfilePage: NextPage<{ params: ProfilePageParams }> = async ({
   const { username } = params; // Destructuring works fine in async function
   const initialProfileUser = await fetchUserByUsernameServer(username);
 
-  return (
-    <ProfileContent
-      username={username}
-      initialProfileUser={initialProfileUser}
-    />
-  );
+  return <ProfileContent username={username} />;
 };
 
 async function fetchUserByUsernameServer(username: string) {
