@@ -8,6 +8,50 @@ import {
 } from "../../../utils/type";
 import { uploadImageToCloudinary } from "@/lib/CloudinaryUpload";
 
+// Helper function to generate a unique username
+async function generateUniqueUsername(
+  firstName: string | null,
+  lastName: string | null,
+  email: string
+) {
+  let baseUsername: string;
+
+  // Step 1: Determine base username
+  if (firstName && lastName) {
+    baseUsername = `${firstName}${lastName}`.toLowerCase().replace(/\s+/g, "");
+  } else if (firstName) {
+    baseUsername = firstName.toLowerCase().replace(/\s+/g, "");
+  } else if (lastName) {
+    baseUsername = lastName.toLowerCase().replace(/\s+/g, "");
+  } else {
+    // Use email prefix (before @) if no names are available
+    baseUsername = email
+      .split("@")[0]
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+  }
+
+  // Step 2: Check availability and make unique
+  let username = baseUsername;
+  let suffix = 1;
+
+  while (true) {
+    const existingUser = await client.user.findUnique({
+      where: { username },
+    });
+
+    if (!existingUser) {
+      break; // Username is available
+    }
+
+    // If taken, append a number and try again
+    username = `${baseUsername}${suffix}`;
+    suffix++;
+  }
+
+  return username;
+}
+
 // Authenticate user
 export const onAuthenticateUser = async () => {
   try {
@@ -27,12 +71,20 @@ export const onAuthenticateUser = async () => {
       return { status: 200, user: existingUser };
     }
 
+    // Generate a unique username for new users
+    const username = await generateUniqueUsername(
+      user.firstName,
+      user.lastName,
+      user.emailAddresses[0]?.emailAddress ?? "user"
+    );
+
     const newUser = await client.user.create({
       data: {
         clerkUserId: user.id,
-        email: user?.emailAddresses[0]?.emailAddress ?? "",
-        firstname: user?.firstName || null,
-        lastname: user?.lastName || null,
+        email: user.emailAddresses[0]?.emailAddress ?? "",
+        firstname: user.firstName || null,
+        lastname: user.lastName || null,
+        username, // Add the generated username
       },
     });
 
@@ -53,6 +105,22 @@ export const getUserByClerkId = async (clerkUserId: string) => {
     });
   } catch (error) {
     console.error("🔴 ERROR:", error);
+  }
+};
+
+export const getUserByUsername = async (username: string) => {
+  if (!username) {
+    throw new Error("Username is required");
+  }
+
+  try {
+    const user = await client.user.findUnique({
+      where: { username },
+    });
+    return user; // Return raw user data, not a NextResponse
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    throw new Error("Internal server error");
   }
 };
 

@@ -1,6 +1,7 @@
 // src/actions/query/queries.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  getUserByUsername,
   onAuthenticateUser,
   updateUser,
   uploadAndSaveImage,
@@ -12,7 +13,6 @@ import {
   getProjectById,
   getProjects,
 } from "../project";
-import { ProjectFormValues } from "../../../../utils/validations/project";
 import {
   UploadAndSaveImageParams,
   UploadImageParams,
@@ -28,6 +28,15 @@ export const useCurrentUser = () => {
   });
 };
 
+// User By UserName
+export const fetchUserByUsername = (username: string) => {
+  return useQuery({
+    queryKey: ["UserByUserName", username],
+    queryFn: () => getUserByUsername(username),
+    retry: 1,
+    enabled: !!username,
+  });
+};
 // Update user data
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();

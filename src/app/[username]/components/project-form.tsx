@@ -28,45 +28,13 @@ const steps = [
   "Upload Image",
 ];
 
-const formData = {
-  title: `SplitWise`,
-  description: `Splitwise Clone is a group expense management web app...`,
-  longDescription: `### 🤝 **Looking for Collaborators**...`,
-  technologies: [
-    "React",
-    "Tailwind CSS",
-    "Node.js",
-    "Express",
-    "MongoDB",
-    "JWT",
-    "Vercel",
-  ],
-  liveDemo: "https://split-wise-azure.vercel.app/",
-  githubRepo: "https://github.com/PawanSirsat/SplitWise",
-  status: "In Progress",
-  startDate: "2023-10-01",
-  endDate: "2023-12-01",
-  teamSize: 1,
-  role: "Full Stack Developer",
-  keyFeatures: [
-    "Group Expense Management",
-    "Real-Time Updates",
-    "User-Friendly Interface",
-    "Responsive Design",
-  ],
-  challenges: [
-    "Implementing real-time updates for expense tracking.",
-    "Ensuring a smooth user experience across devices.",
-    "Managing state efficiently in a large React application.",
-  ],
-  lessons: [
-    "Gained a deeper understanding of React state management.",
-    "Learned how to integrate Tailwind CSS for rapid UI development.",
-    "Improved my skills in backend development and API design.",
-  ],
-  tags: ["Fullstack Dev"],
-  media:
-    "https://github.com/user-attachments/assets/b44a514e-0a41-4f09-8786-fc529ed51cf9",
+// Define fields relevant to each step for validation
+const stepFields: { [key: number]: (keyof ProjectFormValues)[] } = {
+  0: ["title", "description", "longDescription"],
+  1: ["status", "startDate", "endDate", "teamSize", "role"],
+  2: ["technologies"],
+  3: ["keyFeatures", "challenges", "lessons"],
+  4: ["liveDemo", "githubRepo", "media", "tags"],
 };
 
 export function ProjectForm() {
@@ -78,13 +46,29 @@ export function ProjectForm() {
 
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
+    mode: "onChange", // Validate on change to catch errors early
+    defaultValues: {
+      title: "",
+      description: "",
+      longDescription: "",
+      technologies: [],
+      liveDemo: "",
+      githubRepo: "",
+      status: "",
+      startDate: "",
+      endDate: "",
+      teamSize: 1,
+      role: "",
+      keyFeatures: [],
+      challenges: [],
+      lessons: [],
+      tags: [],
+      media: "",
+    },
   });
 
   const onSubmit = async (data: ProjectFormValues) => {
-    if (!isSubmitButtonClicked.current) {
-      return;
-    }
-
+    if (!isSubmitButtonClicked.current) return;
     isSubmitButtonClicked.current = false;
 
     setIsSubmitting(true);
@@ -92,17 +76,13 @@ export function ProjectForm() {
       console.log("Form Data:", data);
       const response = await fetch("/api/project", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
         toast.success("Project created successfully!");
-        setTimeout(() => {
-          router.push("/profile");
-        }, 2000);
+        setTimeout(() => router.push("/profile"), 2000);
       } else {
         toast.error("Failed to create project. Please try again.");
         console.error("Error creating project:", response);
@@ -120,9 +100,21 @@ export function ProjectForm() {
     toast.error("Please fix the errors in the form.");
   };
 
-  const nextStep = () =>
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
-  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
+  const nextStep = async () => {
+    // Validate only the fields relevant to the current step
+    const fieldsToValidate = stepFields[currentStep];
+    const isValid = await form.trigger(fieldsToValidate);
+
+    if (isValid) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    } else {
+      toast.error("Please fill in all required fields correctly.");
+    }
+  };
+
+  const prevStep = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
 
   useEffect(() => {
     if (tabsRef.current) {

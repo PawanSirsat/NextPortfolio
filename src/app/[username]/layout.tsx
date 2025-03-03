@@ -10,7 +10,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen py-20 px-6 sm:px-12">{children}</div>
+      <div className="min-h-screen py-5 px-6 sm:px-12">{children}</div>
       <Footer />
     </div>
   );

@@ -1,30 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Wand2, Laptop, Briefcase, Brush } from "lucide-react";
 import { motion, useScroll, useTransform, easeInOut } from "framer-motion";
+
+type Category = "For you" | "Tech" | "Pro" | "Creative";
+
+interface CategoriesBarProps {
+  onCategoryChange: Dispatch<SetStateAction<Category>>;
+  activeCategory: Category;
+}
 
 type ShadowClasses = {
   "text-violet-400": string;
   "text-blue-400": string;
   "text-yellow-400": string;
-  "text-red-400": string;
+  "text-teal-400": string; // Changed from "text-red-400"
 };
 
-export default function CategoriesBar() {
+export default function CategoriesBar({
+  onCategoryChange,
+  activeCategory,
+}: CategoriesBarProps) {
   const categories = [
-    { name: "For you", icon: <Wand2 />, color: "text-violet-400" },
-    { name: "Tech", icon: <Laptop />, color: "text-blue-400" },
-    { name: "Pro", icon: <Briefcase />, color: "text-yellow-400" },
-    { name: "Creative", icon: <Brush />, color: "text-red-400" },
+    {
+      name: "For you" as Category,
+      icon: <Wand2 />,
+      color: "text-violet-400",
+      hex: "#8b5cf6",
+    },
+    {
+      name: "Tech" as Category,
+      icon: <Laptop />,
+      color: "text-blue-400",
+      hex: "#60a5fa",
+    },
+    {
+      name: "Pro" as Category,
+      icon: <Briefcase />,
+      color: "text-yellow-400",
+      hex: "#facc15",
+    },
+    {
+      name: "Creative" as Category,
+      icon: <Brush />,
+      color: "text-teal-400", // Changed from "text-red-400"
+      hex: "#2dd4bf", // Changed from "#ef4444"
+    },
   ];
 
-  const [activeCategory, setActiveCategory] = useState("For you");
   const { scrollYProgress } = useScroll();
 
-  const handleCategoryClick = (categoryName: string) => {
-    setActiveCategory(categoryName);
-
+  const handleCategoryClick = (categoryName: Category) => {
+    onCategoryChange(categoryName);
     const startPosition = window.scrollY;
     const targetPosition = 0;
     const distance = targetPosition - startPosition;
@@ -52,12 +80,11 @@ export default function CategoriesBar() {
       "text-violet-400": "active-icon-shadow-violet",
       "text-blue-400": "active-icon-shadow-blue",
       "text-yellow-400": "active-icon-shadow-yellow",
-      "text-red-400": "active-icon-shadow-red",
+      "text-teal-400": "active-icon-shadow-teal", // Changed from "active-icon-shadow-red"
     };
     return shadowClasses[color] || "";
   };
 
-  // Animation for icons
   const iconScale = useTransform(scrollYProgress, [0, 0.02], [1, 0], {
     ease: easeInOut,
   });
@@ -74,20 +101,14 @@ export default function CategoriesBar() {
     scrollYProgress,
     [0, 0.02],
     ["12px", "0px"],
-    {
-      ease: easeInOut,
-    }
+    { ease: easeInOut }
   );
   const iconContainerOpacity = useTransform(
     scrollYProgress,
     [0, 0.02],
     [1, 0],
-    {
-      ease: easeInOut,
-    }
+    { ease: easeInOut }
   );
-
-  // Border opacity and border radius animation
   const borderOpacity = useTransform(scrollYProgress, [0, 0.02], [0, 1], {
     ease: easeInOut,
   });
@@ -95,39 +116,28 @@ export default function CategoriesBar() {
     scrollYProgress,
     [0, 0.02],
     ["12px", "15px"],
-    {
-      ease: easeInOut,
-    }
+    { ease: easeInOut }
   );
-
-  // Dynamic top position for navbar
-  const navbarTop = useTransform(
-    scrollYProgress,
-    [0, 0.02], // Adjust this range for sensitivity
-    ["3rem", "0rem"], // Start at top-12 (3rem), move to top-0
-    {
-      ease: easeInOut,
-    }
-  );
+  const navbarTop = useTransform(scrollYProgress, [0, 0.02], ["3rem", "0rem"], {
+    ease: easeInOut,
+  });
 
   return (
     <>
       <motion.div
         className="py-4 lg:px-24 fixed left-0 right-0 z-50 mx-1"
-        style={{
-          top: navbarTop, // Dynamic top position
-        }}
+        style={{ top: navbarTop }}
       >
         <motion.div
           className="w-full max-w-2xl mx-auto p-2 relative"
           style={{
             borderRadius: borderRadius,
-            backgroundColor: "rgba(0, 0, 0, 0.6)", // Semi-transparent background
-            backdropFilter: "blur(10px)", // Blur effect
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backdropFilter: "blur(10px)",
             border: useTransform(
               borderOpacity,
               (value) => `2px solid rgba(100, 100, 100, ${value})`
-            ), // Dark gray border with dynamic opacity
+            ),
           }}
         >
           <div className="flex justify-between items-center w-full gap-4 relative z-10">
@@ -157,10 +167,7 @@ export default function CategoriesBar() {
                 >
                   <motion.span
                     className={`${category.color} transition-colors duration-300`}
-                    style={{
-                      scale: iconScale,
-                      opacity: iconOpacity,
-                    }}
+                    style={{ scale: iconScale, opacity: iconOpacity }}
                   >
                     {category.icon}
                   </motion.span>
@@ -189,8 +196,8 @@ export default function CategoriesBar() {
         .active-icon-shadow-yellow {
           box-shadow: 0 0 26px 5px rgba(250, 204, 21, 0.5) !important;
         }
-        .active-icon-shadow-red {
-          box-shadow: 0 0 26px 5px rgba(239, 68, 68, 0.5) !important;
+        .active-icon-shadow-teal {
+          box-shadow: 0 0 26px 5px rgba(45, 212, 191, 0.5) !important; // Updated to teal (#2dd4bf)
         }
       `}</style>
     </>
