@@ -13,7 +13,7 @@ import { OwnerProfile } from "./OwnerProfile";
 import { VisitorProfile } from "./VisitorProfile";
 
 interface ProfileContentProps {
-  username: string;
+  username: any;
 }
 
 export const ProfileContent = ({ username }: ProfileContentProps) => {

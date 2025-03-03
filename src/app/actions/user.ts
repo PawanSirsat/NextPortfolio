@@ -238,7 +238,7 @@ export const uploadImage = async ({
   }
 };
 
-export const fetchUserByUsernameServer = async (username: string) => {
+export const fetchUserByUsernameServer = async (username: any) => {
   try {
     const user = await client.user.findUnique({
       where: { username },
