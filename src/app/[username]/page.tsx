@@ -9,11 +9,9 @@ interface ProfilePageParams {
 }
 
 // Use NextPage with the params type
-export default async function ProfilePage({
+const ProfilePage: NextPage<{ params: ProfilePageParams }> = async ({
   params,
-}: {
-  params: ProfilePageParams;
-}) {
+}) => {
   const { username } = params; // Destructuring works fine in async function
   const initialProfileUser = await fetchUserByUsernameServer(username);
 
@@ -23,7 +21,7 @@ export default async function ProfilePage({
       initialProfileUser={initialProfileUser}
     />
   );
-}
+};
 
 async function fetchUserByUsernameServer(username: string) {
   try {
@@ -73,3 +71,5 @@ export async function generateMetadata({
     },
   };
 }
+
+export default ProfilePage;
