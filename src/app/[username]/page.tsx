@@ -1,22 +1,23 @@
 import { client } from "@/lib/prisma";
 import { Metadata } from "next";
 import { ProfileContent } from "./components/ProfileContent";
-import { NextPage } from "next";
 
 // Define the params type explicitly for the dynamic route
 interface ProfilePageParams {
   username: string;
 }
 
-// Use NextPage with the params type
-const ProfilePage: NextPage<{ params: ProfilePageParams }> = async ({
+// Use the correct type for the component
+export default async function ProfilePage({
   params,
-}) => {
-  const { username } = params; // Destructuring works fine in async function
+}: {
+  params: ProfilePageParams;
+}) {
+  const { username } = params;
   const initialProfileUser = await fetchUserByUsernameServer(username);
 
   return <ProfileContent username={username} />;
-};
+}
 
 async function fetchUserByUsernameServer(username: string) {
   try {
@@ -51,7 +52,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${profileUser.username}’s Profile`,
       description: profileUser.bio || "View this user’s profile on Almanac.",
-      url: `https://yourwebsite.com/${profileUser.username}`, // Replace with your domain
+      url: `https://yourwebsite.com/${profileUser.username}`,
       type: "profile",
       images: [
         {
@@ -66,5 +67,3 @@ export async function generateMetadata({
     },
   };
 }
-
-export default ProfilePage;
