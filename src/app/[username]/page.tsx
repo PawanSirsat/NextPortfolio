@@ -3,10 +3,27 @@ import { Metadata } from "next";
 import { ProfileContent } from "./components/ProfileContent";
 import { NextPage } from "next";
 
-// Define the params type for the dynamic route
-type ProfilePageProps = {
-  params: { username: string };
-};
+// Define the params type explicitly for the dynamic route
+interface ProfilePageParams {
+  username: string;
+}
+
+// Use NextPage with the params type
+export default async function ProfilePage({
+  params,
+}: {
+  params: ProfilePageParams;
+}) {
+  const { username } = params; // Destructuring works fine in async function
+  const initialProfileUser = await fetchUserByUsernameServer(username);
+
+  return (
+    <ProfileContent
+      username={username}
+      initialProfileUser={initialProfileUser}
+    />
+  );
+}
 
 async function fetchUserByUsernameServer(username: string) {
   try {
@@ -20,24 +37,11 @@ async function fetchUserByUsernameServer(username: string) {
   }
 }
 
-// Use NextPage type for the page component
-const ProfilePage: NextPage<ProfilePageProps> = async ({ params }) => {
-  const { username } = params; // Destructuring works fine in async function
-  const initialProfileUser = await fetchUserByUsernameServer(username);
-
-  return (
-    <ProfileContent
-      username={username}
-      initialProfileUser={initialProfileUser}
-    />
-  );
-};
-
-export default ProfilePage;
-
 export async function generateMetadata({
   params,
-}: ProfilePageProps): Promise<Metadata> {
+}: {
+  params: ProfilePageParams;
+}): Promise<Metadata> {
   const { username } = params;
   const profileUser = await fetchUserByUsernameServer(username);
 
