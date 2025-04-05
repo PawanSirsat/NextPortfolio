@@ -23,7 +23,7 @@ const Navbar = () => {
             <h1
               className={`heading bg-gradient-to-r from-[#378ce6] to-[#bd60bd] text-transparent bg-clip-text py-1 px-3 rounded-md backdrop-blur-lg ${exo2.className} animate-pulse-subtle`}
             >
-              Almanac
+              Aetherlog
             </h1>
           </div>
         </Link>
